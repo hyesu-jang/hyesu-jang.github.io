@@ -2,17 +2,14 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: <a href='https://www.seadronix.com/'>Seadronix Inc.</a>.
 
 profile:
   align: right
-  image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image: profile.jpg
+  image_circular: true # crops the image to make it circular
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
-
+    
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 
@@ -27,8 +24,8 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](https://www.reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I am a Robotics Researcher at [Seadronix Inc.](https://www.seadronix.com/). My research focuses on `Sensor Fusion` and `SLAM` algorithm development for autonomous vessel systems, utilizing X-band Radar, W-band Radar, and LiDAR.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+Previously, I was a Post-Doctoral Researcher at the Institute of Advanced Machines and Design at Seoul National University (SNU). I obtained my Ph.D. in Mechanical Engineering at SNU ([Robust Perception and Mobile Robotics Lab](https://rpm.snu.ac.kr/)), advised by [Prof. Ayoung Kim](https://ayoungk.github.io/). My doctoral research centered on Robust Radar SLAM for Maritime Environments.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+I completed my M.S. and B.S. in Civil and Environmental Engineering at the Korea Advanced Institute of Science and Technology (KAIST). During my Master's, I was also advised by Prof. Ayoung Kim and focused on Opti-Acoustic Underwater SLAM using style-transferred multi-modal matching. Throughout my academic and professional career, I have actively contributing to the advancement of autonomous navigation technologies from the underwater to surface, full maritime autonomy.
