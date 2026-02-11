@@ -23,7 +23,9 @@ conferences:
   - key: IJRR
     label: IJRR
     query: '@*[ijrr=true]*'
-
+  - key: Workshop
+    label: Workshops
+    query: '@*[workshop=true]*'
 
 topics:
   - key: Radar
@@ -50,9 +52,6 @@ topics:
   - key: Ground
     label: Ground
     query: '@*[ground=true]*'
-  - key: Workshop
-    label: Workshops
-    query: '@*[workshop=true]*'
 ---
 
 
@@ -98,7 +97,7 @@ topics:
     <div id="{{ conf.key }}-publications" style="display:none;">
       <h3>{{ conf.label }} Publications</h3>
       <div class="publications">
-        {% bibliography --group_by year --year_sort descending --query {{ conf.query }} %}
+        {% bibliography --group_by none --sort_by year --order descending --query {{ conf.query }} %}
       </div>
     </div>
   {% endfor %}
@@ -106,14 +105,14 @@ topics:
     <div id="{{ topic.key }}-publications" style="display:none;">
       <h3>{{ topic.label }} Publications</h3>
       <div class="publications">
-        {% bibliography --group_by year --year_sort descending --query {{ topic.query }} %}
+        {% bibliography --group_by none --sort_by year --order descending --query {{ topic.query }} %}
       </div>
     </div>
   {% endfor %}
   <div id="all-publications">
     <h3>All Publications</h3>
     <div class="publications">
-      {% bibliography --group_by year --year_sort descending %}
+      {% bibliography --group_by none --sort_by year --order descending %}
     </div>
   </div>
 </div>
