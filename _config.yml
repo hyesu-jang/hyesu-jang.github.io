@@ -201,6 +201,7 @@ exclude:
   - _pages/profiles.md
   - _pages/dropdown.md
   - _pages/teaching.md
+  - _pages/cv.md
 keep_files:
   - CNAME
   - .nojekyll
