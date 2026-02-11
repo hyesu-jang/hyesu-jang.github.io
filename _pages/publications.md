@@ -29,6 +29,12 @@ topics:
   - key: Radar
     label: Radar
     query: '@*[radar=true]*'
+  - key: Sonar
+    label: Sonar
+    query: '@*[sonar=true]*'
+  - key: LiDAR
+    label: LiDAR
+    query: '@*[lidar=true]*'
   - key: Learning
     label: Learning
     query: '@*[learning=true]*'
