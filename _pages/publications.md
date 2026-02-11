@@ -40,7 +40,7 @@ topics:
     query: '@*[learning=true]*'
   - key: SLAM
     label: SLAM
-    query: '@*[SLAM=true]*'
+    query: '@*[slam=true]*'
   - key: Under
     label: Underwater
     query: '@*[under=true]*'
@@ -98,7 +98,7 @@ topics:
     <div id="{{ conf.key }}-publications" style="display:none;">
       <h3>{{ conf.label }} Publications</h3>
       <div class="publications">
-        {% bibliography --group_by none --query {{ conf.query }} %}
+        {% bibliography --group_by year --year_sort descending --query {{ conf.query }} %}
       </div>
     </div>
   {% endfor %}
@@ -106,14 +106,14 @@ topics:
     <div id="{{ topic.key }}-publications" style="display:none;">
       <h3>{{ topic.label }} Publications</h3>
       <div class="publications">
-        {% bibliography --group_by none --query {{ topic.query }} %}
+        {% bibliography --group_by year --year_sort descending --query {{ topic.query }} %}
       </div>
     </div>
   {% endfor %}
   <div id="all-publications">
     <h3>All Publications</h3>
     <div class="publications">
-      {% bibliography --group_by none %}
+      {% bibliography --group_by year --year_sort descending %}
     </div>
   </div>
 </div>
