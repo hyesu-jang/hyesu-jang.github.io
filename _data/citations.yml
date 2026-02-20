@@ -1,29 +1,29 @@
 metadata:
-  last_updated: '2026-02-16'
+  last_updated: '2026-02-20'
 papers:
   liSzSegAAAAJ:3fE2CSJIrl8C:
-    citations: 4
-    title: Ground-Optimized 4D Radar-Inertial Odometry via Continuous Velocity Integration using Gaussian Process
+    citations: 6
+    title: Ground-optimized 4D Radar-inertial odometry via continuous velocity integration using Gaussian process
     year: '2025'
   liSzSegAAAAJ:5nxA0vEk-isC:
     citations: 14
     title: CNN-based approach for opti-acoustic reciprocal feature matching
     year: '2019'
   liSzSegAAAAJ:8k81kl-MbHgC:
-    citations: 5
+    citations: 6
     title: 'MOANA: Multi-radar dataset for maritime odometry and autonomous navigation application'
     year: '2025'
   liSzSegAAAAJ:IjCSPb-OGe4C:
     citations: 40
-    title: 'I-LOAM: Intensity Enhanced LiDAR Odometry and Mapping'
+    title: 'I-LOAM: Intensity enhanced LiDAR odometry and mapping'
     year: '2020'
   liSzSegAAAAJ:LkGwnXOMwfcC:
     citations: 1
     title: Imaging radar and LiDAR image translation for 3-DOF extrinsic calibration
     year: '2024'
   liSzSegAAAAJ:MXK_kJrjxJIC:
-    citations: 11
-    title: 'HeRCULES: Heterogeneous Radar Dataset in Complex Urban Environment for Multi-session Radar SLAM'
+    citations: 12
+    title: 'Hercules: Heterogeneous radar dataset in complex urban environment for multi-session radar slam'
     year: '2025'
   liSzSegAAAAJ:Tyk-4Ss8FVUC:
     citations: 18
@@ -34,48 +34,48 @@ papers:
     title: Radar-based Angular Correction for Tightly-coupled LiDAR Odometry
     year: '2022'
   liSzSegAAAAJ:WF5omc3nYNoC:
-    citations: 104
+    citations: 102
     title: 'A new wave in robotics: Survey on recent mmwave radar applications in robotics'
     year: '2024'
   liSzSegAAAAJ:Y0pCki6q_DkC:
-    citations: 5
+    citations: 6
     title: Study on the training effectiveness of deep learning with synthesized underwater sonar image using pix2pix and fcn
     year: '2020'
   liSzSegAAAAJ:YsMSGLbcyi4C:
-    citations: 13
+    citations: 14
     title: Data augmentation using image translation for underwater sonar image segmentation
     year: '2022'
   liSzSegAAAAJ:_FxGoFyzp5QC:
     citations: 29
-    title: 'RaPlace: Place Recognition for Imaging Radar using Radon Transform and Mutable Threshold'
+    title: 'Raplace: Place recognition for imaging radar using radon transform and mutable threshold'
     year: '2023'
   liSzSegAAAAJ:d1gkVwhDpl0C:
     citations: 8
-    title: Synthesizing Image and Automated Annotation Tool for CNN based Under Water Object Detection
+    title: Synthesizing image and automated annotation tool for CNN based under water object detection
     year: '2019'
   liSzSegAAAAJ:eQOLeE2rZwMC:
-    citations: 3
-    title: Intensity and Ambient Enhanced Lidar-Inertial SLAM for Unstructured Construction Environment
+    citations: 2
+    title: Intensity and ambient enhanced lidar-inertial slam for unstructured construction environment
     year: '2021'
   liSzSegAAAAJ:hqOjcs7Dif8C:
     citations: 4
-    title: 2D Ego-Motion with Yaw Estimation using Only mmWave Radars via Two-Way weighted ICP
+    title: 2D ego-motion with yaw estimation using only mmWave radars via two-way weighted ICP
     year: '2024'
   liSzSegAAAAJ:kNdYIx-mwKoC:
     citations: 0
     title: 'XPRESS: X-Band Radar Place Recognition via Elliptical Scan Shaping'
     year: '2025'
   liSzSegAAAAJ:qjMakFHDy7sC:
-    citations: 28
+    citations: 29
     title: Underwater image dehazing via unpaired image-to-image translation
     year: '2020'
   liSzSegAAAAJ:roLk4NBRz8UC:
     citations: 6
-    title: 'LodeStar: Maritime Radar Descriptor for Semi-Direct Radar Odometry'
+    title: 'Lodestar: Maritime radar descriptor for semi-direct radar odometry'
     year: '2024'
   liSzSegAAAAJ:u-x6o8ySG0sC:
-    citations: 25
-    title: Underwater Object Detection and Pose Estimation using Deep Learning
+    citations: 23
+    title: Underwater object detection and pose estimation using deep learning
     year: '2019'
   liSzSegAAAAJ:u5HHmVD_uO8C:
     citations: 0
