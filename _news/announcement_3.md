@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2026-02-12 07:59:00-0400
+date: 2025-07-01 00:00:00+0900
 inline: true
 related_posts: false
 ---
 
-Page is under construction
+MOANA paper published in **IJRR** (Cover Article).
