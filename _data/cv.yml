@@ -158,33 +158,41 @@ cv:
     Professional Service:
       - title: "Reviewer"
         date: ""
-        summary: "IEEE T-RO, RA-L, ICRA, IROS, UR, JKROS"
+        summary: >
+          IEEE Transactions on Robotics (T-RO)<br>
+          IEEE Robotics and Automation Letters (RA-L)<br>
+          IEEE International Conference on Robotics and Automation (ICRA)<br>
+          IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)<br>
+          International Conference on Ubiquitous Robots (UR)<br>
+          Journal of Korea Robotics Society (JKROS)
 
       - title: "Teaching Assistant"
         date: ""
-        summary: "[CE352] Signal and System for Construction IT, KAIST (2018) / [M3228.000300] Sensor-Based Spatial Intelligence, SNU (2022) / [M2794.004200] Mechanical System Design Project, SNU (2022)"
+        summary: >
+          [CE352] Signal and System for Construction IT, KAIST (2018)<br>
+          [M3228.000300] Sensor-Based Spatial Intelligence, SNU (2022)<br>
+          [M2794.004200] Mechanical System Design Project, SNU (2022)
 
       - title: "Page/Server Administrator"
         date: ""
-        summary: "MOANA Dataset, MulRan Dataset, SNU RPM Lab website"
+        summary: >
+          MOANA Dataset<br>
+          MulRan Dataset<br>
+          SNU RPM Lab website
 
     Skills:
       - name: Programming
-        level: Expert
         icon: fa-solid fa-code
         keywords: "Python, C/C++, MATLAB, PHP, HTML/CSS"
 
       - name: Sensor Fusion & SLAM
-        level: Expert
         icon: fa-solid fa-satellite-dish
         keywords: "X-band Radar, W-band Radar, LiDAR, Camera, Sonar"
 
       - name: Robotics
-        level: Expert
         icon: fa-solid fa-robot
         keywords: "Autonomous Vessels, Maritime Navigation, Mobile Robotics"
 
       - name: Tools
-        level: Advanced
         icon: fa-solid fa-terminal
         keywords: "Linux, Shell, LaTeX, Git, ROS, ROS2"

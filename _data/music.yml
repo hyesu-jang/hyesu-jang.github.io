@@ -41,21 +41,22 @@ cv:
         start_date: "2014-03"
         end_date: "2015-12"
 
+    Previous Affiliations:
+      - position: Composer
+        company: "Number — KAIST Creative Musical Club"
+        start_date: "2015-11"
+        end_date: "2019-12"
+
+      - position: Composer
+        company: "LP — KAIST Composer Group"
+        start_date: "2014-03"
+        end_date: "2015-12"
+
     Music Education:
       - studyType: Piano & Choir Accompaniment
         institution: Peniel International Middle School of the Arts
         start_date: "2009-03"
         end_date: "2012-02"
-
-      - studyType: Composer
-        institution: "Number — KAIST Creative Musical Club"
-        start_date: "2015-11"
-        end_date: "2019-12"
-
-      - studyType: Composer
-        institution: "LP — KAIST Composer Group"
-        start_date: "2014-03"
-        end_date: "2015-12"
 
     Piano Arrangements:
       - title: Fake Love + Merry Christmas Mr.Lawrence
