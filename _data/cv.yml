@@ -1,7 +1,7 @@
 cv:
   name: Hyesu Jang
   label: Robotics Researcher
-  email: hyesu.official@gmail.com
+  email:
   location: Seoul, KR
   image: ""
   summary: >
@@ -65,7 +65,7 @@ cv:
 
     Experience:
       - company: Seadronix Inc.
-        position: Robotics Researcher / Team Leader
+        position: Robotics Researcher
         location: Seoul, Korea
         url: https://www.seadronix.com/
         start_date: 2025-01
