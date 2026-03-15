@@ -1,0 +1,388 @@
+cv:
+  sections:
+    Bands:
+      - position: Vocal / Keyboard Player
+        company: Xynthia
+        summary: Shoegaze & Dreampop Band
+        start_date: "2019-09"
+        end_date: ""
+        location: Seoul
+
+      - position: Keyboard Player
+        company: 5fCourse
+        summary: Rock Band
+        start_date: "2023-08"
+        end_date: ""
+        location: Seoul
+
+    Previous Bands:
+      - position: Ballad Pop Keyboard Player
+        company: "행복회로 (E.E. Band)"
+        start_date: "2020-03"
+        end_date: "2020-12"
+
+      - position: Keyboard Player
+        company: Quatro Cheese Gyudon
+        start_date: "2018-03"
+        end_date: "2018-06"
+
+      - position: E.Guitar Player
+        company: Graduation Gift
+        start_date: "2018-03"
+        end_date: "2018-06"
+
+      - position: Modern Rock Keyboard Player
+        company: "Eight-bit (E.E. Band)"
+        start_date: "2016-03"
+        end_date: "2016-12"
+
+      - position: A.Guitar Player
+        company: Four Leaders
+        start_date: "2014-03"
+        end_date: "2015-12"
+
+    Music Education:
+      - studyType: Piano & Choir Accompaniment
+        institution: Peniel International Middle School of the Arts
+        start_date: "2009-03"
+        end_date: "2012-02"
+
+      - studyType: Composer
+        institution: "Number — KAIST Creative Musical Club"
+        start_date: "2015-11"
+        end_date: "2019-12"
+
+      - studyType: Composer
+        institution: "LP — KAIST Composer Group"
+        start_date: "2014-03"
+        end_date: "2015-12"
+
+    Piano Arrangements:
+      - title: Fake Love + Merry Christmas Mr.Lawrence
+        links:
+          - label: SoundCloud
+            url: "https://soundcloud.com/pianodortz/fake-christmas"
+
+      - title: "僕が死のうと思ったのは"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=pUsO1na-EeU"
+          - label: SoundCloud
+            url: "https://soundcloud.com/pianodortz/bokuga"
+
+      - title: "Can you feel the love tonight (The Lion King OST)"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=cAlURarMVks"
+          - label: SoundCloud
+            url: "https://soundcloud.com/pianodortz/can-you-feel-the-love-tonightthe-lion-king-ost-piano-cover"
+
+      - title: "Super Junior(K.R.Y.) - Dorothy"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=tYzpfe4J5TQ"
+          - label: SoundCloud
+            url: "https://soundcloud.com/pianodortz/dorothy"
+
+      - title: "양희은 - 사랑 그 쓸쓸함에 대하여"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=0_wVQtyQREk"
+
+      - title: "신종현 - 외로움의 이유"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=pOBtkOeueWY"
+
+      - title: "과나 - 그거 아세요?"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=S8XAVG9RFN4"
+
+      - title: "시간은 거꾸로 흐른다"
+        links:
+          - label: YouTube
+            url: "https://youtu.be/uzNU_isHXZw"
+
+    Original Music:
+      - title: Archive
+        date: "2021"
+        role: "C"
+
+      - title: Fatigue
+        date: "2020"
+        role: "C, A, M"
+        links:
+          - label: SoundCloud
+            url: "https://soundcloud.com/pianodortz/fatigue"
+
+      - title: "Season of the rain — Piano ver."
+        date: "2019"
+        role: "C, A, M"
+        links:
+          - label: SoundCloud
+            url: "https://soundcloud.com/pianodortz/season-of-rain"
+
+      - title: "간이역"
+        date: "2018"
+        role: "C, A, L"
+
+      - title: Nova
+        date: "2018"
+        role: "C, A, M"
+
+      - title: Everyday
+        date: "2018"
+        role: "C, A, M"
+
+      - title: "화양연화"
+        date: "2018"
+        role: "C, A, M"
+
+      - title: "일년을 보내고"
+        date: "2016"
+        role: "C, A, M"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=axXvLruhh9E"
+
+      - title: "오렴"
+        date: "2016"
+        role: "C"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=ntj4_7mD1ZI"
+
+      - title: Spectre
+        date: "2016"
+        role: "C, A, M"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=h1UOJicEbro"
+
+      - title: "언제나처럼 (As always)"
+        date: "2016"
+        role: "C"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=W-jv6QFvmsg"
+
+      - title: "3AM: 잃어버린 시"
+        date: "2015"
+        role: "C, A, M"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=AYYWRSTcl3U"
+
+      - title: "3PM: 너를 만나는 날"
+        date: "2015"
+        role: "C, A, M"
+
+      - title: HONOLULU
+        date: "2015"
+        role: "C, A"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=d-MlmD09Wic"
+
+      - title: "비의 계절"
+        date: "2015"
+        role: "C, A, M"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=vz1fwtBt9fI"
+
+      - title: Largo to Presto
+        date: "2015"
+        role: "C"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=Ib50S07sVF8"
+
+      - title: "암월"
+        date: "2015"
+        role: "C, A, M"
+        links:
+          - label: YouTube
+            url: "https://www.youtube.com/watch?v=k903H0zf4J0"
+
+      - title: Wish
+        date: "2014"
+        role: "C"
+
+    Musicals:
+      - title: "속는 셈 치고 연애 학원"
+        date: "2019"
+        role: Composer
+
+      - title: "우리는 알지 못했던 이야기"
+        date: "2019"
+        role: Composer
+
+      - title: "사랑도 집필이 되나요?"
+        date: "2018"
+        role: Composer
+
+      - title: "별 볼 일 없던 시"
+        date: "2018"
+        role: Composer
+        links:
+          - label: YouTube
+            url: "https://youtu.be/PhS22m1Fbjc"
+
+      - title: "모모 (Momo)"
+        date: "2017"
+        role: Composer
+        links:
+          - label: YouTube
+            url: "https://youtu.be/zuJc1sRsK-s"
+
+      - title: "우리 동네 마을 버스"
+        date: "2017"
+        role: Composer
+
+      - title: "부케의 비밀"
+        date: "2016"
+        role: Composer
+
+      - title: "밥 한 끼 해요"
+        date: "2016"
+        role: Composer
+
+    Performances:
+      - title: MORA CREW
+        date: "2025-02"
+        venue: "Space Hong, Seoul"
+        band: 5fCourse
+        video_url: "https://www.youtube.com/watch?v=rBU-b-eSAzE"
+        setlist:
+          - "유다빈밴드 - 불"
+          - "한로로 - 입춘"
+          - "이영지 - Small Girl"
+          - "보아(BoA) - 공중정원"
+          - "한로로 - 먹이사슬"
+          - "SHINEE - Sherlock"
+          - "QWER - 고민중독"
+          - "Peppertones - Ready get set go"
+          - "Peppertones - 21세기의 어떤 날"
+          - "OASIS - Don't look back in anger"
+
+      - title: "信號燈"
+        date: "2025-02"
+        venue: "Club Hermit, Seoul"
+        band: Xynthia
+        setlist:
+          - "Alcest - Souvenirs d'un autre monde"
+          - "BrokenTeeth - 첫눈"
+          - "파란노을 - 흰천장"
+          - "검정치마 - 어떤 날"
+          - "Xynthia - Broken Cable"
+          - "검정치마 - Lester Burnham"
+
+      - title: Just be a Rock
+        date: "2024-08"
+        venue: "201P, Seoul"
+        band: 5fCourse
+        video_url: "https://youtu.be/acgbRvREbTA?si=CWyUyml8zcKPIK0i"
+        setlist:
+          - "Sam Smith - Unholy"
+          - "Christopher - Bad"
+          - "정국 - Seven"
+          - "(G)I-DLE - 아픈건 딱 질색이니까"
+          - "SHINEE - Sherlock"
+          - "Touched - 야경"
+          - "Touched - Stand up"
+          - "Day6 - 한 페이지가 될 수 있게"
+          - "고속도로 로맨스"
+
+      - title: March
+        date: "2024-02"
+        venue: "Mple Lounge, Seoul"
+        band: 5fCourse
+        setlist:
+          - "이고도 - 우리 같은 사람들"
+          - "IU - Coin"
+          - "유다빈밴드 - 항해"
+          - "Touched - 야경"
+          - "유정석 - 질풍가도"
+
+      - title: "환절기 — Change of Season"
+        date: "2023-09"
+        venue: "Interplay, Daejeon"
+        band: Xynthia
+        setlist:
+          - "파란노을 - 아름다운세상"
+          - "진수하 - 여름은 깊어가고"
+          - "Xynthia - 나비"
+          - "Slowdive - When the Sun Hits"
+          - "파란노을 - 흰천장"
+          - "언니네이발관 - 어제 만난 슈팅스타"
+          - "검정치마 - Lester Burnham"
+
+      - title: "123, Xynthia, and Catcher"
+        date: "2023-02"
+        venue: "Interplay, Daejeon"
+        band: Xynthia
+        setlist:
+          - "언니네이발관 - 바람이 부는대로"
+          - "BrokenTeeth - 첫눈"
+          - "Xynthia - 나비"
+          - "Slowdive - When the Sun Hits"
+          - "파란노을 - 아름다운세상"
+          - "델리스파이스 - 고양이와 새에 관한 진실"
+          - "Oasis - Champagne Supernova"
+
+      - title: Xynthia
+        date: "2022-07"
+        venue: "Howl at the moon, Daejeon"
+        band: Xynthia
+        setlist:
+          - "델리스파이스 - 키치죠지의 검은 고양이"
+          - "파란노을 - 아름다운 세상"
+          - "브로콜리너마저 - 보편적인 노래"
+          - "Supercar - Planet"
+          - "BrokenTeeth - 첫눈"
+          - "언니네이발관 - 바람이 부는대로"
+          - "검정치마 - 강아지"
+
+    Skills:
+      - name: Instruments
+        keywords:
+          - Piano
+          - Synthesizer
+          - Guitar
+          - Flute
+
+      - name: Programs
+        keywords:
+          - Cubase
+          - Premiere Pro
+
+      - name: Production
+        keywords:
+          - Composing
+          - Arranging
+          - Mixing
+          - Mastering
+          - Vocal Editing
+
+    Achievements:
+      - title: Excellent Award
+        date: "2018"
+        awarder: KAIST Taewool Song Festival
+
+      - title: Grand Prize
+        date: "2016"
+        awarder: KAIST Idea Cooking for Fusion of Engineering and Art
+
+      - title: Best Grades Award — Spring Piano Major
+        date: "2011"
+        awarder: "Beethoven - Appassionata"
+
+      - title: Best Grades Award — Spring Piano Major
+        date: "2010"
+        awarder: "Beethoven - Moonlight Sonata"
+
+      - title: Best Grades Award — Fall Piano Major
+        date: "2009"
+        awarder: "Chopin - Fantaisie Impromptu"
