@@ -2,58 +2,56 @@
 layout: page
 permalink: /publications/
 title: publications
-description: 
+description:
 nav: true
 nav_order: 1
-
 
 conferences:
   - key: ICRA
     label: ICRA
-    query: '@*[icra=true]*'
+    query: "@*[icra=true]*"
   - key: IROS
     label: IROS
-    query:  '@*[iros=true]*'
+    query: "@*[iros=true]*"
   - key: TRO
     label: TRO
-    query: '@*[tro=true]*'
+    query: "@*[tro=true]*"
   - key: RAL
     label: RAL
-    query: '@*[ral=true]*'
+    query: "@*[ral=true]*"
   - key: IJRR
     label: IJRR
-    query: '@*[ijrr=true]*'
+    query: "@*[ijrr=true]*"
   - key: Workshop
     label: Workshops
-    query: '@*[workshop=true]*'
+    query: "@*[workshop=true]*"
 
 topics:
   - key: Radar
     label: Radar
-    query: '@*[radar=true]*'
+    query: "@*[radar=true]*"
   - key: Sonar
     label: Sonar
-    query: '@*[sonar=true]*'
+    query: "@*[sonar=true]*"
   - key: LiDAR
     label: LiDAR
-    query: '@*[lidar=true]*'
+    query: "@*[lidar=true]*"
   - key: Learning
     label: Learning
-    query: '@*[learning=true]*'
+    query: "@*[learning=true]*"
   - key: SLAM
     label: SLAM
-    query: '@*[slam=true]*'
+    query: "@*[slam=true]*"
   - key: Under
     label: Underwater
-    query: '@*[under=true]*'
+    query: "@*[under=true]*"
   - key: Surface
     label: Surface
-    query: '@*[surface=true]*'
+    query: "@*[surface=true]*"
   - key: Ground
     label: Ground
-    query: '@*[ground=true]*'
+    query: "@*[ground=true]*"
 ---
-
 
 <style>
 .filter-buttons {
@@ -148,4 +146,3 @@ function showConference(conf) {
 // Show all by default
 showConference('all');
 </script>
-
