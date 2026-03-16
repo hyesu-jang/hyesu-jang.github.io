@@ -80,105 +80,116 @@ cv:
         summary: Institute of Advanced Machines and Design.
 
     Awards:
-      - title: Best Conference Paper Award – Finalist
+      - name: Best Conference Paper Award – Finalist
         date: 2025
-        awarder: IEEE ICRA
+        highlights:
+          - IEEE ICRA
 
-      - title: Best Paper Award on Robot Perception – Finalist
+      - name: Best Paper Award on Robot Perception – Finalist
         date: 2025
-        awarder: IEEE ICRA
+        highlights:
+          - IEEE ICRA
 
-      - title: Excellent Award (Runner-up)
+      - name: Excellent Award (Runner-up)
         date: 2017
-        awarder: KAIST Undergraduate Research Program
+        highlights:
+          - KAIST Undergraduate Research Program
 
-      - title: Grand Prize
+      - name: Grand Prize
         date: 2016
-        awarder: KAIST Idea Cooking for Fusion of Engineering and Art
+        highlights:
+          - KAIST Idea Cooking for Fusion of Engineering and Art
 
-      - title: Encouragement Award (3rd Prize)
+      - name: Encouragement Award (3rd Prize)
         date: 2016
-        awarder: KAIST Undergraduate Research Program
+        highlights:
+          - KAIST Undergraduate Research Program
 
     Patents:
-      - title: "Radar placement and algorithm for ego-motion estimation"
-        date: ""
-        summary: "Registered, No.10-2587292"
+      - name: "Radar placement and algorithm for ego-motion estimation"
+        highlights:
+          - "Registered, No.10-2587292"
 
-      - title: "Electronic device for estimating underwater path with acoustic and optical matching"
-        date: ""
-        summary: "Registered, No.10-2678475"
+      - name: "Electronic device for estimating underwater path with acoustic and optical matching"
+        highlights:
+          - "Registered, No.10-2678475"
 
-      - title: "A method for performing place recognition using radar image"
-        date: ""
-        summary: "Filed, No.10-2025-0136094"
+      - name: "A method for performing place recognition using radar image"
+        highlights:
+          - "Filed, No.10-2025-0136094"
 
-      - title: "Apparatus and method for determining odometry of mobile object"
-        date: ""
-        summary: "Filed, No.10-2026-0026295"
+      - name: "Apparatus and method for determining odometry of mobile object"
+        highlights:
+          - "Filed, No.10-2026-0026295"
 
     Projects:
-      - title: "High-precision sensor system and software for autonomous return of small and medium-sized vessels in coastal areas"
+      - name: "High-precision sensor system and software for autonomous return of small and medium-sized vessels in coastal areas"
         date: 2025
-        summary: "Seadronix Inc."
+        highlights:
+          - "Seadronix Inc."
 
-      - title: "Development of multipurpose offshore floating infrastructure construction technology"
+      - name: "Development of multipurpose offshore floating infrastructure construction technology"
         date: 2023-2024
-        summary: "Seoul National University"
+        highlights:
+          - "Seoul National University"
 
-      - title: "Maritime Radar Odometry Estimation"
+      - name: "Maritime Radar Odometry Estimation"
         date: 2023
-        summary: "Seoul National University"
+        highlights:
+          - "Seoul National University"
 
-      - title: "Non-optical sensor-based autonomous driving for extreme environments"
+      - name: "Non-optical sensor-based autonomous driving for extreme environments"
         date: 2021-2024
-        summary: "Seoul National University"
+        highlights:
+          - "Seoul National University"
 
-      - title: "Construction site information collection and analysis technology"
+      - name: "Construction site information collection and analysis technology"
         date: 2021-2024
-        summary: "Seoul National University"
+        highlights:
+          - "Seoul National University"
 
-      - title: "Automated urban analysis techniques using 3D sensor data"
+      - name: "Automated urban analysis techniques using 3D sensor data"
         date: 2019
-        summary: "KAIST"
+        highlights:
+          - "KAIST"
 
-      - title: "Navigation Technology and Safety Device Design for the Visually Impaired"
+      - name: "Navigation Technology and Safety Device Design for the Visually Impaired"
         date: 2017
-        summary: "KAIST Undergraduate Research Program"
+        highlights:
+          - "KAIST Undergraduate Research Program"
 
-      - title: "Weather/Season Invariant Place Recognition using Image Processing"
+      - name: "Weather/Season Invariant Place Recognition using Image Processing"
         date: 2016
-        summary: "KAIST Undergraduate Research Program"
+        highlights:
+          - "KAIST Undergraduate Research Program"
 
     Workshop Organization:
-      - title: "Workshop on Radar in Robotics: Resilience from Signal to Navigation"
+      - name: "Workshop on Radar in Robotics: Resilience from Signal to Navigation"
         date: 2024
-        awarder: IEEE ICRA
+        highlights:
+          - IEEE ICRA
 
     Professional Service:
-      - title: "Reviewer"
-        date: ""
-        summary: >
-          IEEE Transactions on Robotics (T-RO)<br>
-          IEEE Robotics and Automation Letters (RA-L)<br>
-          IEEE International Conference on Robotics and Automation (ICRA)<br>
-          IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)<br>
-          International Conference on Ubiquitous Robots (UR)<br>
-          Journal of Korea Robotics Society (JKROS)
+      - name: "Reviewer"
+        highlights:
+          - "IEEE Transactions on Robotics (T-RO)"
+          - "IEEE Robotics and Automation Letters (RA-L)"
+          - "IEEE International Conference on Robotics and Automation (ICRA)"
+          - "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)"
+          - "International Conference on Ubiquitous Robots (UR)"
+          - "Journal of Korea Robotics Society (JKROS)"
 
-      - title: "Teaching Assistant"
-        date: ""
-        summary: >
-          [CE352] Signal and System for Construction IT, KAIST (2018)<br>
-          [M3228.000300] Sensor-Based Spatial Intelligence, SNU (2022)<br>
-          [M2794.004200] Mechanical System Design Project, SNU (2022)
+      - name: "Teaching Assistant"
+        highlights:
+          - "[CE352] Signal and System for Construction IT, KAIST (2018)"
+          - "[M3228.000300] Sensor-Based Spatial Intelligence, SNU (2022)"
+          - "[M2794.004200] Mechanical System Design Project, SNU (2022)"
 
-      - title: "Page/Server Administrator"
-        date: ""
-        summary: >
-          MOANA Dataset<br>
-          MulRan Dataset<br>
-          SNU RPM Lab website
+      - name: "Page/Server Administrator"
+        highlights:
+          - "MOANA Dataset"
+          - "MulRan Dataset"
+          - "SNU RPM Lab website"
 
     Skills:
       - name: Programming
