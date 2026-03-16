@@ -60,10 +60,10 @@ layout: default
         {% comment %} RenderCV format {% endcomment %}
         {% assign cv = site.data.cv.cv %}
 
-        <!-- Header/Contact Information -->
+        <!-- Header/About -->
         {% if cv.name or cv.label or cv.location or cv.email or cv.phone or cv.website %}
           <div class="card mt-3 p-3">
-            <h3 class="card-title font-weight-medium">Contact Information</h3>
+            <h3 class="card-title font-weight-medium">About</h3>
             <table class="table table-cv table-sm table-borderless">
               {% if cv.name %}
                 <tr>
@@ -154,7 +154,12 @@ layout: default
               {% if section_title == 'Education' %}
                 {% assign entries = section_entries %}
                 {% include cv/education.liquid %}
-              {% elsif section_title == 'Awards' or section_title == 'Honors and Awards' or section_title == 'Patents' or section_title == 'Workshop Organization' or section_title == 'Professional Service' %}
+              {% elsif section_title == 'Awards'
+                or section_title == 'Honors and Awards'
+                or section_title == 'Patents'
+                or section_title == 'Workshop Organization'
+                or section_title == 'Professional Service'
+              %}
                 {% assign entries = section_entries %}
                 {% include cv/awards.liquid %}
               {% elsif section_title == 'Publications' %}
