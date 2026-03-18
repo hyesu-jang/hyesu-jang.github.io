@@ -1,8 +1,8 @@
 metadata:
-  last_updated: '2026-02-20'
+  last_updated: '2026-03-18'
 papers:
   liSzSegAAAAJ:3fE2CSJIrl8C:
-    citations: 6
+    citations: 7
     title: Ground-optimized 4D Radar-inertial odometry via continuous velocity integration using Gaussian process
     year: '2025'
   liSzSegAAAAJ:5nxA0vEk-isC:
@@ -12,9 +12,9 @@ papers:
   liSzSegAAAAJ:8k81kl-MbHgC:
     citations: 6
     title: 'MOANA: Multi-radar dataset for maritime odometry and autonomous navigation application'
-    year: '2025'
+    year: '2026'
   liSzSegAAAAJ:IjCSPb-OGe4C:
-    citations: 40
+    citations: 41
     title: 'I-LOAM: Intensity enhanced LiDAR odometry and mapping'
     year: '2020'
   liSzSegAAAAJ:LkGwnXOMwfcC:
@@ -22,7 +22,7 @@ papers:
     title: Imaging radar and LiDAR image translation for 3-DOF extrinsic calibration
     year: '2024'
   liSzSegAAAAJ:MXK_kJrjxJIC:
-    citations: 12
+    citations: 15
     title: 'Hercules: Heterogeneous radar dataset in complex urban environment for multi-session radar slam'
     year: '2025'
   liSzSegAAAAJ:Tyk-4Ss8FVUC:
@@ -34,7 +34,7 @@ papers:
     title: Radar-based Angular Correction for Tightly-coupled LiDAR Odometry
     year: '2022'
   liSzSegAAAAJ:WF5omc3nYNoC:
-    citations: 102
+    citations: 108
     title: 'A new wave in robotics: Survey on recent mmwave radar applications in robotics'
     year: '2024'
   liSzSegAAAAJ:Y0pCki6q_DkC:
@@ -42,11 +42,11 @@ papers:
     title: Study on the training effectiveness of deep learning with synthesized underwater sonar image using pix2pix and fcn
     year: '2020'
   liSzSegAAAAJ:YsMSGLbcyi4C:
-    citations: 14
+    citations: 15
     title: Data augmentation using image translation for underwater sonar image segmentation
     year: '2022'
   liSzSegAAAAJ:_FxGoFyzp5QC:
-    citations: 29
+    citations: 31
     title: 'Raplace: Place recognition for imaging radar using radon transform and mutable threshold'
     year: '2023'
   liSzSegAAAAJ:d1gkVwhDpl0C:
@@ -66,7 +66,7 @@ papers:
     title: 'XPRESS: X-Band Radar Place Recognition via Elliptical Scan Shaping'
     year: '2025'
   liSzSegAAAAJ:qjMakFHDy7sC:
-    citations: 29
+    citations: 30
     title: Underwater image dehazing via unpaired image-to-image translation
     year: '2020'
   liSzSegAAAAJ:roLk4NBRz8UC:
@@ -74,7 +74,7 @@ papers:
     title: 'Lodestar: Maritime radar descriptor for semi-direct radar odometry'
     year: '2024'
   liSzSegAAAAJ:u-x6o8ySG0sC:
-    citations: 23
+    citations: 24
     title: Underwater object detection and pose estimation using deep learning
     year: '2019'
   liSzSegAAAAJ:u5HHmVD_uO8C:
