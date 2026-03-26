@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='https://www.seadronix.com/'>Seadronix Inc.</a>. / Robotics Team
+subtitle: <a href='https://www.seadronix.com/'>Seadronix Inc.</a>. / Physical AI Team
 
 profile:
   align: right
