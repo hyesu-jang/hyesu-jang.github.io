@@ -1,8 +1,8 @@
 metadata:
-  last_updated: '2026-03-18'
+  last_updated: '2026-03-27'
 papers:
   liSzSegAAAAJ:3fE2CSJIrl8C:
-    citations: 7
+    citations: 8
     title: Ground-optimized 4D Radar-inertial odometry via continuous velocity integration using Gaussian process
     year: '2025'
   liSzSegAAAAJ:5nxA0vEk-isC:
@@ -34,7 +34,7 @@ papers:
     title: Radar-based Angular Correction for Tightly-coupled LiDAR Odometry
     year: '2022'
   liSzSegAAAAJ:WF5omc3nYNoC:
-    citations: 108
+    citations: 110
     title: 'A new wave in robotics: Survey on recent mmwave radar applications in robotics'
     year: '2024'
   liSzSegAAAAJ:Y0pCki6q_DkC:
