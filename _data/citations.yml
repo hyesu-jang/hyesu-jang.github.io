@@ -1,8 +1,8 @@
 metadata:
-  last_updated: '2026-03-27'
+  last_updated: '2026-04-01'
 papers:
   liSzSegAAAAJ:3fE2CSJIrl8C:
-    citations: 8
+    citations: 9
     title: Ground-optimized 4D Radar-inertial odometry via continuous velocity integration using Gaussian process
     year: '2025'
   liSzSegAAAAJ:5nxA0vEk-isC:
@@ -26,7 +26,7 @@ papers:
     title: 'Hercules: Heterogeneous radar dataset in complex urban environment for multi-session radar slam'
     year: '2025'
   liSzSegAAAAJ:Tyk-4Ss8FVUC:
-    citations: 18
+    citations: 19
     title: Multi-session Underwater Pose-graph SLAM using Inter-session Opti-acoustic Two-view Factor
     year: '2021'
   liSzSegAAAAJ:W7OEmFMy1HYC:
