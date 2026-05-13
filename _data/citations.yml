@@ -1,5 +1,5 @@
 metadata:
-  last_updated: '2026-05-11'
+  last_updated: '2026-05-13'
 papers:
   liSzSegAAAAJ:3fE2CSJIrl8C:
     citations: 13
@@ -34,7 +34,7 @@ papers:
     title: Radar-based Angular Correction for Tightly-coupled LiDAR Odometry
     year: '2022'
   liSzSegAAAAJ:WF5omc3nYNoC:
-    citations: 121
+    citations: 122
     title: 'A new wave in robotics: Survey on recent mmwave radar applications in robotics'
     year: '2024'
   liSzSegAAAAJ:Y0pCki6q_DkC:
