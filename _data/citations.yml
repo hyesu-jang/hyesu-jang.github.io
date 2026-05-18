@@ -1,5 +1,5 @@
 metadata:
-  last_updated: '2026-05-13'
+  last_updated: '2026-05-18'
 papers:
   liSzSegAAAAJ:3fE2CSJIrl8C:
     citations: 13
@@ -34,7 +34,7 @@ papers:
     title: Radar-based Angular Correction for Tightly-coupled LiDAR Odometry
     year: '2022'
   liSzSegAAAAJ:WF5omc3nYNoC:
-    citations: 122
+    citations: 123
     title: 'A new wave in robotics: Survey on recent mmwave radar applications in robotics'
     year: '2024'
   liSzSegAAAAJ:Y0pCki6q_DkC:
@@ -46,7 +46,7 @@ papers:
     title: Data augmentation using image translation for underwater sonar image segmentation
     year: '2022'
   liSzSegAAAAJ:_FxGoFyzp5QC:
-    citations: 34
+    citations: 35
     title: 'Raplace: Place recognition for imaging radar using radon transform and mutable threshold'
     year: '2023'
   liSzSegAAAAJ:d1gkVwhDpl0C:
@@ -58,11 +58,11 @@ papers:
     title: Intensity and ambient enhanced lidar-inertial slam for unstructured construction environment
     year: '2021'
   liSzSegAAAAJ:hqOjcs7Dif8C:
-    citations: 4
+    citations: 5
     title: 2D ego-motion with yaw estimation using only mmWave radars via two-way weighted ICP
     year: '2024'
   liSzSegAAAAJ:kNdYIx-mwKoC:
-    citations: 0
+    citations: 1
     title: 'XPRESS: X-Band Radar Place Recognition via Elliptical Scan Shaping'
     year: '2025'
   liSzSegAAAAJ:qjMakFHDy7sC:
