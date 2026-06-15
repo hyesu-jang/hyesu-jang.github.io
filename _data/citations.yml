@@ -1,5 +1,5 @@
 metadata:
-  last_updated: '2026-06-12'
+  last_updated: '2026-06-15'
 papers:
   liSzSegAAAAJ:3fE2CSJIrl8C:
     citations: 13
@@ -10,7 +10,7 @@ papers:
     title: CNN-based approach for opti-acoustic reciprocal feature matching
     year: '2019'
   liSzSegAAAAJ:8k81kl-MbHgC:
-    citations: 8
+    citations: 9
     title: 'MOANA: Multi-radar dataset for maritime odometry and autonomous navigation application'
     year: '2026'
   liSzSegAAAAJ:IjCSPb-OGe4C:
@@ -50,7 +50,7 @@ papers:
     title: O] 4 Feb 2025
     year: Unknown Year
   liSzSegAAAAJ:_FxGoFyzp5QC:
-    citations: 38
+    citations: 39
     title: 'Raplace: Place recognition for imaging radar using radon transform and mutable threshold'
     year: '2023'
   liSzSegAAAAJ:d1gkVwhDpl0C:
