@@ -1,6 +1,42 @@
 ---
 ---
-<div class="row">
+{%- comment -%}
+  Classification read by the publications page filters (assets/js/publications-filter.js).
+  Type: workshop/poster > domestic journal/conference > journal/conference.
+  Tags: area and domain flags set to {true} in the bib entry.
+{%- endcomment -%}
+{%- assign pub_booktitle = entry.booktitle | downcase -%}
+{%- if entry.workshop == 'true' or pub_booktitle contains 'workshop' or pub_booktitle contains 'poster' -%}
+  {%- assign pub_type = 'workshop' -%}
+{%- elsif entry.type == 'article' -%}
+  {%- if entry.domestic == 'true' -%}
+    {%- assign pub_type = 'domestic-journal' -%}
+  {%- else -%}
+    {%- assign pub_type = 'journal' -%}
+  {%- endif -%}
+{%- elsif entry.type == 'inproceedings' -%}
+  {%- if entry.domestic == 'true' -%}
+    {%- assign pub_type = 'domestic-conference' -%}
+  {%- else -%}
+    {%- assign pub_type = 'conference' -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign pub_type = 'other' -%}
+{%- endif -%}
+{%- assign pub_tag_keys = 'radar,sonar,lidar,slam,learning,under,surface,ground' | split: ',' -%}
+{%- assign pub_tags = '' -%}
+{%- for pub_tag in pub_tag_keys -%}
+  {%- if entry[pub_tag] == 'true' -%}
+    {%- assign pub_tags = pub_tags | append: pub_tag | append: ' ' -%}
+  {%- endif -%}
+{%- endfor -%}
+<div
+  class="row"
+  data-pub-type="{{ pub_type }}"
+  data-pub-year="{{ entry.year | strip }}"
+  data-pub-month="{{ entry.month | strip }}"
+  data-pub-tags="{{ pub_tags | strip }}"
+>
   {% if site.enable_publication_thumbnails %}
     <div class="col col-sm-2 abbr">
       {%- if entry.abbr -%}

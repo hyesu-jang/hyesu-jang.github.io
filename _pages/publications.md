@@ -2,153 +2,96 @@
 layout: page
 permalink: /publications/
 title: publications
-description:
+description: Filter by type, research area, domain or year, or search by title, author and venue. * equal contribution, † corresponding author.
 nav: true
 nav_order: 1
 
-conferences:
-  - key: ICRA
-    label: ICRA
-    query: "@*[icra=true]*"
-  - key: IROS
-    label: IROS
-    query: "@*[iros=true]*"
-  - key: ICCAS
-    label: ICCAS
-    query: "@*[iccas=true]*"
-  - key: TRO
-    label: TRO
-    query: "@*[tro=true]*"
-  - key: TRS
-    label: T-RS
-    query: "@*[tras=true]*"
-  - key: RAL
-    label: RAL
-    query: "@*[ral=true]*"
-  - key: IJRR
-    label: IJRR
-    query: "@*[ijrr=true]*"
-  - key: Workshop
-    label: Workshops
-    query: "@*[workshop=true]*"
+# Filter options. Keys must match the classification in _layouts/bib.liquid:
+# - type: workshop (workshop=true or "Workshop"/"Poster" in booktitle), domestic-journal /
+#   domestic-conference (domestic=true), journal (@article), conference (@inproceedings)
+# - areas / domains: flags set to {true} in _bibliography/papers.bib
+pub_types:
+  - key: journal
+    label: Journals
+    chip: Journal
+  - key: conference
+    label: Conferences
+    chip: Conference
+  - key: domestic-journal
+    label: Domestic Journals
+    chip: Domestic Journal
+  - key: domestic-conference
+    label: Domestic Conferences
+    chip: Domestic Conference
+  - key: workshop
+    label: Workshops & Posters
+    chip: Workshop / Poster
 
-topics:
-  - key: Radar
+pub_areas:
+  - key: radar
     label: Radar
-    query: "@*[radar=true]*"
-  - key: Sonar
+  - key: sonar
     label: Sonar
-    query: "@*[sonar=true]*"
-  - key: LiDAR
+  - key: lidar
     label: LiDAR
-    query: "@*[lidar=true]*"
-  - key: Learning
-    label: Learning
-    query: "@*[learning=true]*"
-  - key: SLAM
+  - key: slam
     label: SLAM
-    query: "@*[slam=true]*"
-  - key: Under
+  - key: learning
+    label: Learning
+
+pub_domains:
+  - key: surface
+    label: Maritime Surface
+  - key: under
     label: Underwater
-    query: "@*[under=true]*"
-  - key: Surface
-    label: Surface
-    query: "@*[surface=true]*"
-  - key: Ground
+  - key: ground
     label: Ground
-    query: "@*[ground=true]*"
 ---
 
-<style>
-.filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5em;
-  margin-bottom: 1em;
-  justify-content: center;
-}
-.filter-btn {
-  background: #e0e0e0;
-  color: #222;
-  border: none;
-  border-radius: 18px;
-  padding: 0.2em 0.7em;
-  font-size: 0.8em;
-  cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
-  box-shadow: 0 1px 4px rgba(50,115,220,0.08);
-}
-.filter-btn:hover, .filter-btn.active {
-  background: #54bde7;
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(84, 189, 231,0.15);
-}
-</style>
-<div id="conference-list" class="filter-buttons">
-  {% for conf in page.conferences %}
-    <button class="filter-btn" onclick="showConference('{{ conf.key }}')">{{ conf.label }}</button>
-  {% endfor %}
-  <button class="filter-btn" onclick="showConference('all')">Show All</button>
-</div>
-<div id="topic-list" class="filter-buttons">
-  {% for topic in page.topics %}
-    <button class="filter-btn" onclick="showConference('{{ topic.key }}')">{{ topic.label }}</button>
-  {% endfor %}
-</div>
-
-<div id="publications-container">
-  {% for conf in page.conferences %}
-    <div id="{{ conf.key }}-publications" style="display:none;">
-      <h3>{{ conf.label }} Publications</h3>
-      <div class="publications">
-        {% bibliography --group_by none --query {{ conf.query }} %}
-      </div>
-    </div>
-  {% endfor %}
-  {% for topic in page.topics %}
-    <div id="{{ topic.key }}-publications" style="display:none;">
-      <h3>{{ topic.label }} Publications</h3>
-      <div class="publications">
-        {% bibliography --group_by none --query {{ topic.query }} %}
-      </div>
-    </div>
-  {% endfor %}
-  <div id="all-publications">
-    <h3>All Publications</h3>
-    <div class="publications">
-      {% bibliography --group_by none %}
-    </div>
+<div class="pub-filter" id="pub-filter">
+  <div class="pub-filter-controls">
+    <label class="pub-filter-field">
+      <span class="pub-filter-label">Type</span>
+      <select class="pub-filter-select" data-filter="type">
+        <option value="">All types</option>
+        {% for t in page.pub_types %}<option value="{{ t.key }}" data-chip="{{ t.chip }}">{{ t.label }}</option>{% endfor %}
+      </select>
+    </label>
+    <label class="pub-filter-field">
+      <span class="pub-filter-label">Area</span>
+      <select class="pub-filter-select" data-filter="area">
+        <option value="">All areas</option>
+        {% for a in page.pub_areas %}<option value="{{ a.key }}">{{ a.label }}</option>{% endfor %}
+      </select>
+    </label>
+    <label class="pub-filter-field">
+      <span class="pub-filter-label">Domain</span>
+      <select class="pub-filter-select" data-filter="domain">
+        <option value="">All domains</option>
+        {% for d in page.pub_domains %}<option value="{{ d.key }}">{{ d.label }}</option>{% endfor %}
+      </select>
+    </label>
+    <label class="pub-filter-field pub-filter-field--year">
+      <span class="pub-filter-label">Year</span>
+      <select class="pub-filter-select" data-filter="year">
+        <option value="">All years</option>
+      </select>
+    </label>
+    <label class="pub-filter-field pub-filter-field--search">
+      <span class="pub-filter-label">Search</span>
+      <input type="search" class="pub-filter-input" data-filter="q" placeholder="Title, author, venue…" autocomplete="off" spellcheck="false">
+    </label>
+  </div>
+  <div class="pub-filter-status">
+    <span class="pub-filter-count" aria-live="polite"></span>
+    <button type="button" class="pub-filter-reset" hidden>Clear filters</button>
   </div>
 </div>
 
-<script>
-function showConference(conf) {
-  // Hide all publication sections
-  var keys = [
-    {% for conf in page.conferences %}"{{ conf.key }}",{% endfor %}
-    {% for topic in page.topics %}"{{ topic.key }}",{% endfor %}
-    "all"
-  ];
-  keys.forEach(function(key) {
-    var el = document.getElementById(key + '-publications');
-    if (el) el.style.display = 'none';
-  });
+<div class="publications" id="pub-list">
+  {% bibliography --group_by none %}
+</div>
 
-  // Show the selected section
-  if (conf === 'all') {
-    document.getElementById('all-publications').style.display = 'block';
-  } else {
-    document.getElementById('all-publications').style.display = 'none';
-    var el = document.getElementById(conf + '-publications');
-    if (el) el.style.display = 'block';
-  }
+<p class="pub-filter-empty" hidden>No publications match these filters.</p>
 
-  // Update button active state
-  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-  let btns = document.querySelectorAll('button[onclick="showConference(\''+conf+'\')"]');
-  btns.forEach(btn => btn.classList.add('active'));
-}
-
-// Show all by default
-showConference('all');
-</script>
+<script src="{{ '/assets/js/publications-filter.js' | relative_url | bust_file_cache }}" defer></script>
