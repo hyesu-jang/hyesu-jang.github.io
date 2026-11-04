@@ -40,6 +40,14 @@ layout: default
 
     <div class="clearfix">{{ content }}</div>
 
+    <!-- Research journey -->
+    {% if page.research_graph %}
+      <h2>
+        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">research journey</a>
+      </h2>
+      {% include research_graph.liquid %}
+    {% endif %}
+
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
       <h2>

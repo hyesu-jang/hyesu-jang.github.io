@@ -1,0 +1,25 @@
+<div class="rg-root" id="research-graph" data-source="{{ '/publications/' | relative_url }}">
+  <div class="rg-stats" aria-live="polite"></div>
+  <div class="rg-controls" role="group" aria-label="Highlight papers">
+    <button type="button" class="rg-toggle is-active" data-rg-tag="">All</button>
+    <button type="button" class="rg-toggle" data-rg-tag="radar">Radar</button>
+    <button type="button" class="rg-toggle" data-rg-tag="lidar">LiDAR</button>
+    <button type="button" class="rg-toggle" data-rg-tag="sonar">Sonar</button>
+    <button type="button" class="rg-toggle" data-rg-tag="slam">SLAM</button>
+    <button type="button" class="rg-toggle" data-rg-tag="learning">Learning</button>
+    <span class="rg-controls-sep" aria-hidden="true"></span>
+    <button type="button" class="rg-toggle rg-toggle-lead" data-rg-lead aria-pressed="false">Led by me</button>
+  </div>
+  <div class="rg-scroll">
+    <svg class="rg-svg" role="img" aria-labelledby="rg-svg-title"><title id="rg-svg-title">Publications over time by research domain</title></svg>
+  </div>
+  <div class="rg-legend"></div>
+  <div class="rg-tooltip" role="tooltip" hidden></div>
+  <p class="rg-fallback">
+    Loading the research timeline… If it does not appear, see the <a href="{{ '/publications/' | relative_url }}">full publication list</a>.
+  </p>
+</div>
+<script type="application/json" id="rg-config">
+  {{ site.data.research_journey | jsonify }}
+</script>
+<script src="{{ '/assets/js/research-graph.js' | relative_url | bust_file_cache }}" defer></script>
