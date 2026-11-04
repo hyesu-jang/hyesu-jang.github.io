@@ -6,11 +6,11 @@
 @use "soft-ui" as soft;
 
 .rg-root {
-  /* Sensor hues: validated categorical slots 1-3 (all-pairs, light and dark). */
+  /* Sensor hues: validated as a 4-color set (all-pairs, light and dark). */
   --rg-radar: #2a78d6;
   --rg-lidar: #eb6834;
   --rg-sonar: #1baf7a;
-  --rg-other: #8b8d96;
+  --rg-camera: #c2389e;
   /* Domain bands */
   --rg-lane-surface: #e7f0fb;
   --rg-lane-ground: #f3ede3;
@@ -28,7 +28,7 @@ html[data-theme="dark"] .rg-root {
   --rg-radar: #3987e5;
   --rg-lidar: #d95926;
   --rg-sonar: #199e70;
-  --rg-other: #6f7179;
+  --rg-camera: #d45bb3;
   --rg-lane-surface: #1f2938;
   --rg-lane-ground: #2c2822;
   --rg-lane-under: #1b2b26;
@@ -289,11 +289,18 @@ html[data-theme="dark"] .rg-root {
 /* Legend */
 .rg-legend {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem 1.1rem;
+  flex-direction: column;
+  gap: 0.55rem;
   margin-top: 0.9rem;
   color: var(--soft-muted);
   font-size: 0.78rem;
+}
+
+.rg-legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 1.1rem;
 }
 
 .rg-legend-item {
@@ -324,4 +331,20 @@ html[data-theme="dark"] .rg-root {
     padding: 1.1rem 1rem 0.9rem;
     border-radius: 18px;
   }
+}
+
+.rg-tip-detail {
+  margin-bottom: 0.35rem;
+  color: var(--soft-muted);
+  font-size: 0.76rem;
+}
+
+.rg-tip-award {
+  display: inline-block;
+  padding: 0.05rem 0.55rem;
+  border-radius: 999px;
+  background-color: var(--rg-gold-bg);
+  color: var(--soft-ink);
+  font-size: 0.72rem;
+  font-weight: 600;
 }

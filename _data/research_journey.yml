@@ -1,6 +1,20 @@
-# Award markers for the "research journey" graph on the about page
+# Extra context for the "research journey" graph on the about page
 # (_includes/research_graph.liquid). Papers come from the publications page automatically.
-# Dates are "YYYY-MM".
+# Dates are "YYYY" or "YYYY-MM".
+
+# Research without a paper, shown as its own marker on the timeline.
+# lane: surface | ground | under
+projects:
+  - title: "Weather/Season Invariant Place Recognition using Image Processing"
+    detail: "Place recognition with an omnidirectional camera, robust to weather and season changes."
+    date: "2016"
+    lane: ground
+    award: "Encouragement Award (3rd Prize), KAIST Undergraduate Research Participation Program"
+  - title: "Navigation Technology and Safety Device Design for the Visually Impaired"
+    detail: "Camera-based road detection that guides visually impaired pedestrians to stay on the walkway."
+    date: "2017"
+    lane: ground
+    award: "Excellent Award (Runner-up), KAIST Undergraduate Research Participation Program"
 
 awards:
   - label: "ICRA 2025: Best Conference Paper Finalist, Best Paper on Robot Perception Finalist"

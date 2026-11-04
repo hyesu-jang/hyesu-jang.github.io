@@ -1,7 +1,7 @@
 // "Research journey" graph for the about page (_includes/research_graph.liquid).
 // Papers are read from the rendered /publications/ page (data-pub-* attributes from
-// _layouts/bib.liquid), so the graph updates whenever papers.bib changes. Award markers
-// come from _data/research_journey.yml via #rg-config.
+// _layouts/bib.liquid), so the graph updates whenever papers.bib changes. Projects without
+// a paper and award markers come from _data/research_journey.yml via #rg-config.
 (function () {
   "use strict";
 
@@ -21,15 +21,15 @@
     { key: "radar", label: "Radar", color: "var(--rg-radar)" },
     { key: "lidar", label: "LiDAR", color: "var(--rg-lidar)" },
     { key: "sonar", label: "Sonar", color: "var(--rg-sonar)" },
-    { key: "other", label: "Camera / other", color: "var(--rg-other)" },
+    { key: "camera", label: "Camera", color: "var(--rg-camera)" },
   ];
   var TYPES = {
     journal: { label: "Journal", r: 12 },
     conference: { label: "Conference", r: 9 },
     "domestic-journal": { label: "Domestic journal", r: 7 },
     "domestic-conference": { label: "Domestic conference", r: 7 },
-    workshop: { label: "Workshop / poster", r: 7 },
-    other: { label: "Other", r: 7 },
+    workshop: { label: "Workshop / poster", r: 5.5 },
+    other: { label: "Other", r: 5.5 },
   };
   var TAG_LABELS = { radar: "Radar", lidar: "LiDAR", sonar: "Sonar", slam: "SLAM", learning: "Learning" };
   var VENUE_NAMES = {
@@ -57,12 +57,12 @@
   var legendEl = root.querySelector(".rg-legend");
   var fallback = root.querySelector(".rg-fallback");
 
-  var config = { awards: [] };
+  var config = { projects: [], awards: [] };
   try {
     var configEl = document.getElementById("rg-config");
     if (configEl) config = JSON.parse(configEl.textContent) || config;
   } catch (e) {
-    // Awards are optional decoration.
+    // Projects and awards are optional.
   }
 
   function el(name, attrs, parent) {
@@ -254,10 +254,54 @@
     return a;
   }
 
+  // Midpoint of a "YYYY" or "YYYY-MM" date, so markers sit where the year/month is.
+  function markerT(date) {
+    var t = parseYm(date);
+    if (t === null) return null;
+    return /^\d{4}-\d/.test(String(date)) ? t + 0.5 / 12 : t + 0.5;
+  }
+
+  // Research without a paper (from _data/research_journey.yml).
+  function parseProjects() {
+    return (config.projects || [])
+      .map(function (pr) {
+        var t = markerT(pr.date);
+        if (t === null || !pr.title) return null;
+        var lane = LANES.filter(function (l) {
+          return l.key === pr.lane;
+        })[0];
+        return {
+          project: true,
+          title: pr.title,
+          detail: pr.detail || "",
+          award: pr.award || "",
+          date: String(pr.date),
+          year: Math.floor(t),
+          t: t,
+          r: 8,
+          lane: lane || LANES[1],
+          tags: [lane ? lane.key : "ground"],
+          sensors: [SENSORS[3]],
+          lead: true,
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function drawProject(parent, p) {
+    var g = el("g", { class: "rg-node rg-lead rg-project", tabindex: "0", role: "img", "aria-label": p.title + ", " + p.year + (p.award ? ", " + p.award : "") }, parent);
+    el("circle", { cx: p.x, cy: p.y, r: p.r + 7, class: "rg-hit" }, g);
+    el("rect", { x: p.x - p.r - 3.5, y: p.y - p.r - 3.5, width: 2 * p.r + 7, height: 2 * p.r + 7, rx: 7, class: "rg-hover-ring" }, g);
+    el("rect", { x: p.x - p.r, y: p.y - p.r, width: 2 * p.r, height: 2 * p.r, rx: 4.5, class: "rg-dot", style: "fill:" + p.sensors[0].color }, g);
+    return g;
+  }
+
   function render(papers) {
-    var minT = Math.floor(minOf(papers, (p) => p.t));
+    var projects = parseProjects();
+    var items = papers.concat(projects);
+    var minT = Math.floor(minOf(items, (p) => p.t));
     var now = new Date();
-    var maxT = Math.ceil(Math.max(now.getFullYear() + now.getMonth() / 12, maxOf(papers, (p) => p.t)) + 0.01);
+    var maxT = Math.ceil(Math.max(now.getFullYear() + now.getMonth() / 12, maxOf(items, (p) => p.t)) + 0.01);
     function x(t) {
       return PLOT_L + ((t - minT) / (maxT - minT)) * (PLOT_R - PLOT_L);
     }
@@ -276,7 +320,11 @@
       var count = papers.filter(function (p) {
         return p.lane === lane;
       }).length;
-      el("text", { x: 18, y: lane.cy + 14, class: "rg-lane-count" }, gLanes).textContent = count + (count === 1 ? " paper" : " papers");
+      var extra = projects.filter(function (p) {
+        return p.lane === lane;
+      }).length;
+      el("text", { x: 18, y: lane.cy + 14, class: "rg-lane-count" }, gLanes).textContent =
+        count + (count === 1 ? " paper" : " papers") + (extra ? " · " + extra + (extra === 1 ? " project" : " projects") : "");
     });
 
     // Years.
@@ -288,10 +336,19 @@
     // Awards above the bands.
     var gAwards = el("g", {}, svg);
     var awardNodes = [];
-    (config.awards || []).forEach(function (award) {
-      var t = parseYm(award.date);
+    var awards = (config.awards || []).concat(
+      projects
+        .filter(function (p) {
+          return p.award;
+        })
+        .map(function (p) {
+          return { label: p.award + " — " + p.title, date: p.date };
+        })
+    );
+    awards.forEach(function (award) {
+      var t = markerT(award.date);
       if (t === null || t < minT || t > maxT) return;
-      var ax = x(t + 0.5 / 12);
+      var ax = x(t);
       var g = el("g", { class: "rg-award", tabindex: "0", role: "img", "aria-label": award.label }, gAwards);
       el("circle", { cx: ax, cy: AWARD_Y, r: 14, class: "rg-hit" }, g);
       el("circle", { cx: ax, cy: AWARD_Y, r: 10, class: "rg-award-bg" }, g);
@@ -299,13 +356,13 @@
       awardNodes.push({ g: g, award: award, x: ax, y: AWARD_Y });
     });
 
-    // Bubble positions.
-    papers.forEach(function (p) {
+    // Marker positions.
+    items.forEach(function (p) {
       p.x = x(p.t);
     });
     LANES.forEach(function (lane) {
       layoutLane(
-        papers.filter(function (p) {
+        items.filter(function (p) {
           return p.lane === lane;
         }),
         lane.cy,
@@ -313,8 +370,8 @@
       );
     });
 
-    // Footprint trail through the papers I led.
-    var leadPoints = papers
+    // Footprint trail through my projects and 1st / corresponding author papers.
+    var leadPoints = items
       .filter(function (p) {
         return p.lead;
       })
@@ -323,15 +380,15 @@
       });
     var path = el("path", { d: smoothPath(leadPoints), class: "rg-path" }, svg);
 
-    // Bubbles: co-authored first, then mine on top; larger ones underneath.
+    // Markers: co-authored first, then mine on top; larger ones underneath.
     var gDots = el("g", {}, svg);
-    papers
+    items
       .slice()
       .sort(function (a, b) {
         return a.lead - b.lead || b.r - a.r;
       })
       .forEach(function (p) {
-        p.node = drawBubble(gDots, p);
+        p.node = p.project ? drawProject(gDots, p) : drawBubble(gDots, p);
       });
 
     // Tooltip.
@@ -381,6 +438,21 @@
       place(p.x, p.y - p.r);
     }
 
+    function showProject(p) {
+      tooltip.innerHTML =
+        "<div>" +
+        '<div class="rg-tip-meta"><span class="rg-tip-venue">Undergraduate research</span> · ' +
+        p.year +
+        "</div>" +
+        '<div class="rg-tip-title">' +
+        escapeHtml(p.title) +
+        "</div>" +
+        (p.detail ? '<div class="rg-tip-detail">' + escapeHtml(p.detail) + "</div>" : "") +
+        (p.award ? '<span class="rg-tip-award">★ ' + escapeHtml(p.award) + "</span>" : "") +
+        "</div>";
+      place(p.x, p.y - p.r);
+    }
+
     function showAward(a) {
       tooltip.innerHTML =
         '<div><div class="rg-tip-meta">Award · ' + escapeHtml(a.award.date) + '</div><div class="rg-tip-title">' + escapeHtml(a.award.label) + "</div></div>";
@@ -397,9 +469,10 @@
       node.addEventListener("mouseleave", hide);
       node.addEventListener("blur", hide);
     }
-    papers.forEach(function (p) {
+    items.forEach(function (p) {
       bindHover(p.node, function () {
-        showPaper(p);
+        if (p.project) showProject(p);
+        else showPaper(p);
       });
     });
     awardNodes.forEach(function (a) {
@@ -412,7 +485,7 @@
     var activeTag = "";
     var leadOnly = false;
     function applyHighlight() {
-      papers.forEach(function (p) {
+      items.forEach(function (p) {
         var on = (!activeTag || p.tags.indexOf(activeTag) !== -1) && (!leadOnly || p.lead);
         p.node.classList.toggle("is-dim", !on);
       });
@@ -440,14 +513,7 @@
     applyHighlight();
 
     // Headline numbers.
-    var journals = papers.filter(function (p) {
-      return p.type === "journal";
-    }).length;
-    var stats = [
-      [papers.length, "papers"],
-      [leadPoints.length, "led by me"],
-      [journals, "int'l journals"],
-    ];
+    var stats = [[papers.length, "papers"]];
     statsEl.innerHTML = stats
       .map(function (s) {
         return '<span class="rg-stat"><span class="rg-stat-value">' + s[0] + "</span>" + s[1] + "</span>";
@@ -477,28 +543,44 @@
       );
     }
     var sensorItems = SENSORS.filter(function (s) {
-      return papers.some(function (p) {
+      return items.some(function (p) {
         return p.sensors.indexOf(s) !== -1;
       });
     }).map(function (s) {
       return '<span class="rg-legend-item">' + dot(s.color, 5, true) + s.label + "</span>";
     });
+    // Row 2: one marker per venue type, drawn at the size it has in the chart.
+    var scale = Math.max(svg.getBoundingClientRect().width / W, 0.6) || 1;
+    var sizeItems = ["journal", "conference", "domestic-journal", "domestic-conference", "workshop"]
+      .filter(function (k) {
+        return papers.some(function (p) {
+          return p.type === k;
+        });
+      })
+      .map(function (k) {
+        return '<span class="rg-legend-item">' + dot("var(--soft-muted)", TYPES[k].r * scale, false) + TYPES[k].label + "</span>";
+      });
     legendEl.innerHTML =
+      '<div class="rg-legend-row">' +
       sensorItems.join("") +
       '<span class="rg-legend-sep" aria-hidden="true"></span>' +
       '<span class="rg-legend-item">' +
       dot("var(--soft-muted)", 5, true) +
-      "Led by me</span>" +
+      "1st / corresponding author</span>" +
       '<span class="rg-legend-item">' +
       dot("var(--soft-muted)", 5, false) +
-      "Co-authored</span>" +
+      "Co-author</span>" +
+      (projects.length
+        ? '<span class="rg-legend-item"><svg width="14" height="14" aria-hidden="true"><rect x="2" y="2" width="10" height="10" rx="3" style="fill:var(--soft-muted)"></rect></svg>Research project</span>'
+        : "") +
       '<span class="rg-legend-item"><svg width="26" height="8" aria-hidden="true"><path d="M2,4 H24" class="rg-path"></path></svg>My trail</span>' +
-      '<span class="rg-legend-item">' +
-      dot("var(--soft-muted)", 7, false) +
-      " larger = journal</span>" +
       '<span class="rg-legend-item"><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="8" class="rg-award-bg"></circle><polygon points="' +
       starPoints(8, 8, 5, 2.2) +
-      '" class="rg-award-star"></polygon></svg>Award</span>';
+      '" class="rg-award-star"></polygon></svg>Award</span>' +
+      "</div>" +
+      '<div class="rg-legend-row">' +
+      sizeItems.join("") +
+      "</div>";
   }
 
   var source = root.getAttribute("data-source");
