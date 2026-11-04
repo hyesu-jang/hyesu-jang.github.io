@@ -305,7 +305,7 @@
   }
 
   /* "All" is the resting state: keep it quiet so real selections stand out. */
-  &[data-value=""].is-active {
+  &.pub-filter-chip-all.is-active {
     border-color: color-mix(in srgb, var(--global-theme-color) 30%, transparent);
     background-color: color-mix(in srgb, var(--global-theme-color) 10%, var(--global-bg-color));
     color: var(--global-theme-color);

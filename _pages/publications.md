@@ -57,28 +57,28 @@ pub_domains:
     <div class="pub-filter-row">
       <span class="pub-filter-label" id="pub-filter-label-type">Type</span>
       <div class="pub-filter-options" data-filter="type" role="group" aria-labelledby="pub-filter-label-type">
-        <button type="button" class="pub-filter-chip" data-value="">All</button>
+        <button type="button" class="pub-filter-chip pub-filter-chip-all" data-value="">All</button>
         {% for t in page.pub_types %}<button type="button" class="pub-filter-chip" data-value="{{ t.key }}" data-chip="{{ t.chip }}">{{ t.label }}</button>{% endfor %}
       </div>
     </div>
     <div class="pub-filter-row">
       <span class="pub-filter-label" id="pub-filter-label-area">Area</span>
       <div class="pub-filter-options" data-filter="area" role="group" aria-labelledby="pub-filter-label-area">
-        <button type="button" class="pub-filter-chip" data-value="">All</button>
+        <button type="button" class="pub-filter-chip pub-filter-chip-all" data-value="">All</button>
         {% for a in page.pub_areas %}<button type="button" class="pub-filter-chip" data-value="{{ a.key }}">{{ a.label }}</button>{% endfor %}
       </div>
     </div>
     <div class="pub-filter-row">
       <span class="pub-filter-label" id="pub-filter-label-domain">Domain</span>
       <div class="pub-filter-options" data-filter="domain" role="group" aria-labelledby="pub-filter-label-domain">
-        <button type="button" class="pub-filter-chip" data-value="">All</button>
+        <button type="button" class="pub-filter-chip pub-filter-chip-all" data-value="">All</button>
         {% for d in page.pub_domains %}<button type="button" class="pub-filter-chip" data-value="{{ d.key }}">{{ d.label }}</button>{% endfor %}
       </div>
     </div>
     <div class="pub-filter-row">
       <span class="pub-filter-label" id="pub-filter-label-year">Year</span>
       <div class="pub-filter-options" data-filter="year" role="group" aria-labelledby="pub-filter-label-year">
-        <button type="button" class="pub-filter-chip" data-value="">All</button>
+        <button type="button" class="pub-filter-chip pub-filter-chip-all" data-value="">All</button>
       </div>
     </div>
   </div>
