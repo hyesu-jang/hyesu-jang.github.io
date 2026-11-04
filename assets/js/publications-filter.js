@@ -1,7 +1,7 @@
 // Filterable publication list for /publications/.
 // Each entry carries data-pub-type / data-pub-year / data-pub-month / data-pub-tags,
 // written by _layouts/bib.liquid. This script groups entries by year, adds tag chips,
-// and filters by the selects and search box in _pages/publications.md.
+// and filters by the toggle pills and search box in _pages/publications.md.
 (function () {
   "use strict";
 
@@ -10,21 +10,29 @@
   if (!filterRoot || !listRoot) return;
 
   var MONTHS = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
-  var FILTER_KEYS = ["type", "area", "domain", "year", "q"];
+  var GROUP_KEYS = ["type", "area", "domain", "year"];
+  var FILTER_KEYS = GROUP_KEYS.concat(["q"]);
 
-  var controls = {};
-  FILTER_KEYS.forEach(function (key) {
-    controls[key] = filterRoot.querySelector('[data-filter="' + key + '"]');
+  var groupEls = {};
+  GROUP_KEYS.forEach(function (key) {
+    groupEls[key] = filterRoot.querySelector('.pub-filter-options[data-filter="' + key + '"]');
   });
+  var searchInput = filterRoot.querySelector('[data-filter="q"]');
   var countEl = filterRoot.querySelector(".pub-filter-count");
   var resetBtn = filterRoot.querySelector(".pub-filter-reset");
   var emptyEl = document.querySelector(".pub-filter-empty");
+  var state = { type: "", area: "", domain: "", year: "", q: "" };
 
-  function optionLabels(select) {
+  function optionButtons(key) {
+    return Array.prototype.slice.call(groupEls[key].querySelectorAll(".pub-filter-chip"));
+  }
+
+  // Chips under each entry use the singular data-chip label when given ("Journal" vs. "Journals").
+  function optionLabels(key) {
     var labels = {};
-    Array.prototype.forEach.call(select.options, function (opt) {
-      // Chips use the singular data-chip label when given ("Journal" vs. "Journals").
-      if (opt.value) labels[opt.value] = (opt.getAttribute("data-chip") || opt.textContent).trim();
+    optionButtons(key).forEach(function (btn) {
+      var value = btn.getAttribute("data-value");
+      if (value) labels[value] = (btn.getAttribute("data-chip") || btn.textContent).trim();
     });
     return labels;
   }
@@ -37,16 +45,15 @@
     return MONTHS[value.slice(0, 3)] || 0;
   }
 
-  var typeLabels = optionLabels(controls.type);
-  var areaLabels = optionLabels(controls.area);
-  var domainLabels = optionLabels(controls.domain);
+  var typeLabels = optionLabels("type");
+  var areaLabels = optionLabels("area");
+  var domainLabels = optionLabels("domain");
 
   // Collect entries.
   var entries = [];
   listRoot.querySelectorAll("li").forEach(function (li, index) {
     var row = li.querySelector(".row[data-pub-type]");
     if (!row) return;
-    var tags = (row.getAttribute("data-pub-tags") || "").split(/\s+/).filter(Boolean);
     entries.push({
       li: li,
       row: row,
@@ -54,7 +61,7 @@
       type: row.getAttribute("data-pub-type"),
       year: (row.getAttribute("data-pub-year") || "").trim(),
       month: parseMonth(row.getAttribute("data-pub-month")),
-      tags: tags,
+      tags: (row.getAttribute("data-pub-tags") || "").split(/\s+/).filter(Boolean),
       text: "",
     });
   });
@@ -92,7 +99,7 @@
   listRoot.appendChild(groups);
 
   // Tag chips under each entry's venue line; clicking a chip applies that filter.
-  function makeChip(label, filterKey, value, variantClass) {
+  function makeTag(label, filterKey, value, variantClass) {
     var chip = document.createElement("button");
     chip.type = "button";
     chip.className = "pub-chip " + variantClass;
@@ -107,15 +114,14 @@
     var body = entry.row.querySelector(":scope > div[id]") || entry.row;
     var wrap = document.createElement("div");
     wrap.className = "pub-tags";
-    if (typeLabels[entry.type]) wrap.appendChild(makeChip(typeLabels[entry.type], "type", entry.type, "pub-chip-type"));
+    if (typeLabels[entry.type]) wrap.appendChild(makeTag(typeLabels[entry.type], "type", entry.type, "pub-chip-type"));
     entry.tags.forEach(function (tag) {
-      if (areaLabels[tag]) wrap.appendChild(makeChip(areaLabels[tag], "area", tag, "pub-chip-area"));
+      if (areaLabels[tag]) wrap.appendChild(makeTag(areaLabels[tag], "area", tag, "pub-chip-area"));
     });
     entry.tags.forEach(function (tag) {
-      if (domainLabels[tag]) wrap.appendChild(makeChip(domainLabels[tag], "domain", tag, "pub-chip-domain"));
+      if (domainLabels[tag]) wrap.appendChild(makeTag(domainLabels[tag], "domain", tag, "pub-chip-domain"));
     });
-    var links = body.querySelector(".links");
-    body.insertBefore(wrap, links || null);
+    body.insertBefore(wrap, body.querySelector(".links"));
     // Search text excludes the chips and link buttons.
     var clone = body.cloneNode(true);
     clone.querySelectorAll(".pub-tags, .links, .badges, .hidden").forEach(function (n) {
@@ -124,67 +130,66 @@
     entry.text = clone.textContent.replace(/\s+/g, " ").toLowerCase();
   });
 
-  // Year options and per-option counts.
+  // Year pills, then a count on every pill; pills that would match nothing are dropped.
   years.forEach(function (year) {
-    var opt = document.createElement("option");
-    opt.value = year;
-    opt.textContent = year;
-    controls.year.appendChild(opt);
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "pub-filter-chip";
+    btn.setAttribute("data-value", year);
+    btn.textContent = year;
+    groupEls.year.appendChild(btn);
   });
 
-  function countMatching(test) {
-    return entries.filter(test).length;
-  }
+  var TESTS = {
+    type: function (e, v) {
+      return e.type === v;
+    },
+    area: function (e, v) {
+      return e.tags.indexOf(v) !== -1;
+    },
+    domain: function (e, v) {
+      return e.tags.indexOf(v) !== -1;
+    },
+    year: function (e, v) {
+      return e.year === v;
+    },
+  };
 
-  function decorateOptions(select, test) {
-    // Copy first: removing options from the live collection would skip the next one.
-    Array.prototype.slice.call(select.options).forEach(function (opt) {
-      if (!opt.value) return;
-      var n = countMatching(function (e) {
-        return test(e, opt.value);
-      });
-      opt.textContent = opt.textContent.replace(/\s*\(\d+\)$/, "") + " (" + n + ")";
-      if (n === 0) opt.remove();
+  GROUP_KEYS.forEach(function (key) {
+    optionButtons(key).forEach(function (btn) {
+      var value = btn.getAttribute("data-value");
+      var n = value
+        ? entries.filter(function (e) {
+            return TESTS[key](e, value);
+          }).length
+        : entries.length;
+      if (n === 0) {
+        btn.remove();
+        return;
+      }
+      var badge = document.createElement("span");
+      badge.className = "pub-filter-chip-count";
+      badge.textContent = n;
+      btn.appendChild(badge);
     });
-  }
-
-  decorateOptions(controls.type, function (e, v) {
-    return e.type === v;
-  });
-  decorateOptions(controls.area, function (e, v) {
-    return e.tags.indexOf(v) !== -1;
-  });
-  decorateOptions(controls.domain, function (e, v) {
-    return e.tags.indexOf(v) !== -1;
-  });
-  decorateOptions(controls.year, function (e, v) {
-    return e.year === v;
   });
 
   // Filtering.
-  function readState() {
-    var state = {};
-    FILTER_KEYS.forEach(function (key) {
-      state[key] = (controls[key].value || "").trim();
-    });
-    return state;
-  }
-
-  function matches(entry, state) {
-    if (state.type && entry.type !== state.type) return false;
-    if (state.area && entry.tags.indexOf(state.area) === -1) return false;
-    if (state.domain && entry.tags.indexOf(state.domain) === -1) return false;
-    if (state.year && entry.year !== state.year) return false;
+  function matches(entry) {
+    for (var i = 0; i < GROUP_KEYS.length; i++) {
+      var key = GROUP_KEYS[i];
+      if (state[key] && !TESTS[key](entry, state[key])) return false;
+    }
     if (state.q) {
       var terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
-      for (var i = 0; i < terms.length; i++) {
-        if (entry.text.indexOf(terms[i]) === -1) return false;
+      for (var j = 0; j < terms.length; j++) {
+        if (entry.text.indexOf(terms[j]) === -1) return false;
       }
     }
     return true;
   }
 
-  function writeUrl(state) {
+  function writeUrl() {
     if (!window.history || !window.history.replaceState) return;
     var url = new URL(window.location.href);
     FILTER_KEYS.forEach(function (key) {
@@ -199,10 +204,9 @@
   }
 
   function apply() {
-    var state = readState();
     var visible = 0;
     entries.forEach(function (entry) {
-      var show = matches(entry, state);
+      var show = matches(entry);
       entry.li.hidden = !show;
       if (show) visible++;
     });
@@ -218,36 +222,59 @@
     resetBtn.hidden = !active;
     if (emptyEl) emptyEl.hidden = visible !== 0;
 
+    GROUP_KEYS.forEach(function (key) {
+      optionButtons(key).forEach(function (btn) {
+        var on = btn.getAttribute("data-value") === state[key];
+        btn.classList.toggle("is-active", on);
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    });
     document.querySelectorAll(".pub-chip").forEach(function (chip) {
       var key = chip.getAttribute("data-chip-filter");
       chip.classList.toggle("is-active", state[key] === chip.getAttribute("data-chip-value"));
     });
 
-    writeUrl(state);
+    writeUrl();
   }
 
-  function setControl(key, value) {
-    var control = controls[key];
-    if (control.tagName === "SELECT" && value && !control.querySelector('option[value="' + CSS.escape(value) + '"]')) {
-      value = "";
+  function setFilter(key, value) {
+    value = value || "";
+    if (key === "q") {
+      state.q = value.trim();
+      searchInput.value = value;
+      return;
     }
-    control.value = value;
+    var known = optionButtons(key).some(function (btn) {
+      return btn.getAttribute("data-value") === value;
+    });
+    state[key] = known ? value : "";
   }
 
   // Restore state from the URL (?type=journal&area=radar...).
   var params = new URLSearchParams(window.location.search);
   FILTER_KEYS.forEach(function (key) {
-    if (params.has(key)) setControl(key, params.get(key));
+    if (params.has(key)) setFilter(key, params.get(key));
   });
 
-  ["type", "area", "domain", "year"].forEach(function (key) {
-    controls[key].addEventListener("change", apply);
+  // Pills: pick one per row; clicking the active pill clears that row.
+  GROUP_KEYS.forEach(function (key) {
+    groupEls[key].addEventListener("click", function (event) {
+      var btn = event.target.closest(".pub-filter-chip");
+      if (!btn) return;
+      var value = btn.getAttribute("data-value");
+      setFilter(key, value && state[key] === value ? "" : value);
+      apply();
+    });
   });
-  controls.q.addEventListener("input", apply);
+
+  searchInput.addEventListener("input", function () {
+    state.q = searchInput.value.trim();
+    apply();
+  });
 
   resetBtn.addEventListener("click", function () {
     FILTER_KEYS.forEach(function (key) {
-      setControl(key, "");
+      setFilter(key, "");
     });
     apply();
   });
@@ -257,7 +284,7 @@
     if (!chip) return;
     var key = chip.getAttribute("data-chip-filter");
     var value = chip.getAttribute("data-chip-value");
-    setControl(key, controls[key].value === value ? "" : value);
+    setFilter(key, state[key] === value ? "" : value);
     apply();
     // Bring the filters back into view, below the fixed navbar.
     var top = filterRoot.getBoundingClientRect().top;
@@ -265,4 +292,18 @@
   });
 
   apply();
+
+  // Deep links (/publications/#entry-key, used by the research graph): the list was
+  // reordered above, so scroll to the entry again and briefly highlight it.
+  if (window.location.hash.length > 1) {
+    var target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+    var targetLi = target && target.closest("li");
+    if (targetLi && !targetLi.hidden) {
+      window.scrollTo({ top: targetLi.getBoundingClientRect().top + window.scrollY - 90 });
+      targetLi.classList.add("pub-flash");
+      setTimeout(function () {
+        targetLi.classList.remove("pub-flash");
+      }, 2400);
+    }
+  }
 })();

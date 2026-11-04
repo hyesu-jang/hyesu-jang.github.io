@@ -192,82 +192,152 @@
  ******************************************************************************/
 
 .pub-filter {
-  margin: 0.5rem 0 0;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--global-divider-color);
+  margin: 0.75rem 0 0;
+  padding: 1.1rem 1.25rem 0.9rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--global-theme-color) 3%, var(--global-bg-color));
 }
 
-.pub-filter-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1rem;
-  align-items: flex-end;
+/* Search bar */
+.pub-filter-search {
+  position: relative;
+  margin-bottom: 1rem;
+
+  i {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: var(--global-text-color-light);
+    font-size: 0.85rem;
+    pointer-events: none;
+  }
 }
 
-.pub-filter-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  flex: 1 1 150px;
-  min-width: 0;
-  margin: 0;
-}
-
-.pub-filter-field--year {
-  flex: 0 1 120px;
-}
-
-.pub-filter-field--search {
-  flex: 2 1 220px;
-}
-
-.pub-filter-label {
-  color: var(--global-text-color-light);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.pub-filter-select,
 .pub-filter-input {
   width: 100%;
-  height: 2.4rem;
-  padding: 0 0.75rem;
+  height: 2.6rem;
+  padding: 0 1rem 0 2.5rem;
   border: 1px solid var(--global-divider-color);
-  border-radius: 6px;
+  border-radius: 999px;
   background-color: var(--global-bg-color);
   color: var(--global-text-color);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
+
+  &::placeholder {
+    color: var(--global-text-color-light);
+    opacity: 0.8;
+  }
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--global-theme-color) 35%, var(--global-divider-color));
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--global-theme-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--global-theme-color) 15%, transparent);
+  }
 }
 
-.pub-filter-select:hover,
-.pub-filter-input:hover {
-  border-color: var(--global-text-color-light);
+/* Facet rows: label column + toggle pills */
+.pub-filter-rows {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  row-gap: 0.55rem;
+  align-items: start;
 }
 
-.pub-filter-select:focus,
-.pub-filter-input:focus {
-  outline: none;
-  border-color: var(--global-theme-color);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--global-theme-color) 20%, transparent);
+.pub-filter-row {
+  display: contents;
 }
 
-.pub-filter-select option {
+.pub-filter-label {
+  padding-top: 0.32rem;
+  color: var(--global-text-color-light);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.pub-filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.pub-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.75rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 999px;
   background-color: var(--global-bg-color);
   color: var(--global-text-color);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    border-color: var(--global-theme-color);
+    color: var(--global-theme-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--global-theme-color);
+    outline-offset: 2px;
+  }
+
+  &.is-active {
+    border-color: var(--global-theme-color);
+    background-color: var(--global-theme-color);
+    color: var(--global-hover-text-color);
+  }
+
+  /* "All" is the resting state: keep it quiet so real selections stand out. */
+  &[data-value=""].is-active {
+    border-color: color-mix(in srgb, var(--global-theme-color) 30%, transparent);
+    background-color: color-mix(in srgb, var(--global-theme-color) 10%, var(--global-bg-color));
+    color: var(--global-theme-color);
+  }
 }
 
+.pub-filter-chip-count {
+  color: var(--global-text-color-light);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+
+  .pub-filter-chip:hover & {
+    color: inherit;
+  }
+
+  .pub-filter-chip.is-active & {
+    color: inherit;
+    opacity: 0.8;
+  }
+}
+
+/* Result count + clear */
 .pub-filter-status {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  margin-top: 0.75rem;
+  margin-top: 0.9rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--global-divider-color);
   color: var(--global-text-color-light);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
 }
 
 .pub-filter-reset {
@@ -277,10 +347,25 @@
   color: var(--global-theme-color);
   font-size: inherit;
   cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
-.pub-filter-reset:hover {
-  text-decoration: underline;
+@media (max-width: 576px) {
+  .pub-filter {
+    padding: 0.9rem 0.9rem 0.75rem;
+  }
+
+  .pub-filter-rows {
+    grid-template-columns: 1fr;
+    row-gap: 0.3rem;
+  }
+
+  .pub-filter-label {
+    padding-top: 0.4rem;
+  }
 }
 
 .pub-filter-empty {
@@ -289,6 +374,7 @@
   text-align: center;
 }
 
+/* Year sections */
 .publications .pub-year-title {
   margin: 2rem 0 1.25rem;
   padding-bottom: 0.4rem;
@@ -302,42 +388,57 @@
   margin-top: 0;
 }
 
+.publications ol.bibliography li.pub-flash {
+  border-radius: 8px;
+  animation: pub-flash 2.4s ease-out;
+}
+
+@keyframes pub-flash {
+  0%,
+  40% {
+    background-color: color-mix(in srgb, var(--global-theme-color) 12%, transparent);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Tags under each entry */
 .pub-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
+  gap: 0.3rem;
   margin: 0.35rem 0 0.15rem;
 }
 
 .pub-chip {
-  padding: 0.05rem 0.5rem;
+  padding: 0.02rem 0.5rem;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 999px;
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
   cursor: pointer;
-  transition: opacity 0.15s ease;
-}
+  transition: border-color 0.15s ease;
 
-.pub-chip:hover {
-  opacity: 0.8;
-}
+  &:hover {
+    border-color: currentColor;
+  }
 
-.pub-chip:focus-visible,
-.pub-chip.is-active {
-  outline: 2px solid var(--global-theme-color);
-  outline-offset: 1px;
+  &:focus-visible,
+  &.is-active {
+    border-color: currentColor;
+  }
 }
 
 .pub-chip-type {
-  background-color: var(--global-theme-color);
-  color: var(--global-hover-text-color);
+  background-color: color-mix(in srgb, var(--global-theme-color) 14%, transparent);
+  color: var(--global-theme-color);
 }
 
 .pub-chip-area {
-  background-color: color-mix(in srgb, var(--global-theme-color) 12%, transparent);
-  color: var(--global-theme-color);
+  background-color: color-mix(in srgb, var(--global-text-color) 7%, transparent);
+  color: var(--global-text-color);
 }
 
 .pub-chip-domain {
