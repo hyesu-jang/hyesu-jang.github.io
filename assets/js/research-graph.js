@@ -161,29 +161,47 @@
     return papers;
   }
 
-  // Place bubbles in a band without overlap: nudge up/down from the band centre.
+  // Place bubbles in a band without overlap. Newest first, so the latest work sits
+  // exactly on its date; earlier bubbles in a crowded stretch nudge up/down and, if
+  // needed, slightly left, which keeps the left-to-right order intact.
   function layoutLane(nodes, cy, halfHeight) {
     var placed = [];
     nodes
       .slice()
       .sort(function (a, b) {
-        return a.x - b.x || b.r - a.r;
+        return b.x - a.x || b.r - a.r;
       })
       .forEach(function (n) {
-        var y = cy;
-        for (var step = 0; step < 40; step++) {
-          var offset = Math.ceil(step / 2) * 7 * (step % 2 ? -1 : 1);
-          if (Math.abs(offset) > halfHeight - n.r - 4) break;
-          y = cy + offset;
-          var hit = placed.some(function (p) {
-            var dx = p.x - n.x;
-            var dy = p.y - y;
-            var min = p.r + n.r + 5;
-            return dx * dx + dy * dy < min * min;
-          });
-          if (!hit) break;
+        var maxDy = halfHeight - n.r - 4;
+        var spots = [];
+        for (var dx = 0; dx >= -30; dx -= 3) {
+          for (var k = 0; k * 3.5 <= maxDy; k++) {
+            var dyAbs = k * 3.5;
+            spots.push({ dx: dx, dy: -dyAbs, cost: dyAbs - 2.5 * dx });
+            if (k) spots.push({ dx: dx, dy: dyAbs, cost: dyAbs - 2.5 * dx + 0.01 });
+          }
         }
-        n.y = y;
+        spots.sort(function (a, b) {
+          return a.cost - b.cost;
+        });
+        var best = spots[0];
+        for (var i = 0; i < spots.length; i++) {
+          var sx = n.x + spots[i].dx;
+          var sy = cy + spots[i].dy;
+          if (sx + n.r > W - 8 || sx - n.r < PLOT_L - 8) continue;
+          var hit = placed.some(function (p) {
+            var ddx = p.x - sx;
+            var ddy = p.y - sy;
+            var min = p.r + n.r + 4;
+            return ddx * ddx + ddy * ddy < min * min;
+          });
+          if (!hit) {
+            best = spots[i];
+            break;
+          }
+        }
+        n.x += best.dx;
+        n.y = cy + best.dy;
         placed.push(n);
       });
   }
