@@ -25,8 +25,27 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a Robotics Researcher at [Seadronix Inc.](https://www.seadronix.com/) My research focuses on `Sensor Fusion` and `SLAM` algorithm development for autonomous vessel systems, utilizing X-band Radar, W-band Radar, and LiDAR.
+I'm a robotics researcher at [Seadronix](https://www.seadronix.com/), building **sensor fusion and SLAM** for autonomous vessels. My work covers a wide range of sensors, from X-band and W-band Radar to LiDAR and Camera. I aim to conquer all types of challenges in field robotics perception.
 
-Previously, I was a Post-Doctoral Researcher at the Institute of Advanced Machines and Design at Seoul National University (SNU). I obtained my Ph.D. (Aug. 2024) in Mechanical Engineering at SNU ([Robust Perception and Mobile Robotics Lab](https://rpm.snu.ac.kr/)), advised by [Prof. Ayoung Kim](https://ayoungk.github.io/). My doctoral research centered on Robust Radar SLAM for Maritime Environments.
-
-I completed my M.S. (Aug. 2020) and B.S. (Aug. 2018) in Civil and Environmental Engineering at the Korea Advanced Institute of Science and Technology (KAIST). During my Master's, I was also advised by Prof. Ayoung Kim and focused on Opti-Acoustic Underwater SLAM using style-transferred multi-modal matching. Throughout my academic and professional career, I have actively contributed to the advancement of autonomous navigation technologies from the underwater to surface, full maritime autonomy.
+<div class="bio-timeline">
+  <div class="bio-row">
+    <span class="bio-year">2025 –</span>
+    <span class="bio-what"><strong>Robotics Researcher</strong>, <a href="https://www.seadronix.com/">Seadronix Inc.</a> (Physical AI Team)</span>
+  </div>
+  <div class="bio-row">
+    <span class="bio-year">2024</span>
+    <span class="bio-what"><strong>Postdoctoral Researcher</strong>, Institute of Advanced Machines and Design, Seoul National University</span>
+  </div>
+  <div class="bio-row">
+    <span class="bio-year">2024</span>
+    <span class="bio-what"><strong>Ph.D.</strong> in Mechanical Engineering, Seoul National University<span class="bio-note"><em>Robust Radar SLAM for Maritime Environments</em> · advised by <a href="https://ayoungk.github.io/">Prof. Ayoung Kim</a>, <a href="https://rpm.snu.ac.kr/">RPM Lab</a></span></span>
+  </div>
+  <div class="bio-row">
+    <span class="bio-year">2020</span>
+    <span class="bio-what"><strong>M.S.</strong> in Civil and Environmental Engineering, KAIST<span class="bio-note"><em>Opti-Acoustic Underwater SLAM</em> · advised by Prof. Ayoung Kim</span></span>
+  </div>
+  <div class="bio-row">
+    <span class="bio-year">2018</span>
+    <span class="bio-what"><strong>B.S.</strong> in Civil and Environmental Engineering, KAIST</span>
+  </div>
+</div>

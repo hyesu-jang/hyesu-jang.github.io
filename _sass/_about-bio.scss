@@ -1,0 +1,57 @@
+/*******************************************************************************
+ * About page bio timeline (_pages/about.md)
+ * Uses the soft UI tokens from _soft-ui.scss, so it follows light/dark mode.
+ ******************************************************************************/
+
+@use "soft-ui";
+
+.bio-timeline {
+  display: grid;
+  grid-template-columns: 4.25rem 1fr;
+  gap: 0.75rem 1rem;
+  margin: 1.4rem 0 0.5rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: 18px;
+  background-color: var(--soft-card);
+}
+
+.bio-row {
+  display: contents;
+}
+
+.bio-year {
+  padding-top: 0.08rem;
+  color: var(--soft-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.bio-what {
+  color: var(--soft-ink);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.bio-note {
+  display: block;
+  margin-top: 0.1rem;
+  color: var(--soft-muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 576px) {
+  .bio-timeline {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .bio-year {
+    margin-top: 0.6rem;
+  }
+
+  .bio-row:first-child .bio-year {
+    margin-top: 0;
+  }
+}
