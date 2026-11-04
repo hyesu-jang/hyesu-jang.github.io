@@ -14,9 +14,15 @@ conferences:
   - key: IROS
     label: IROS
     query:  '@*[iros=true]*'
+  - key: ICCAS
+    label: ICCAS
+    query: '@*[iccas=true]*'
   - key: TRO
     label: TRO
     query: '@*[tro=true]*'
+  - key: TRS
+    label: T-RS
+    query: '@*[tras=true]*'
   - key: RAL
     label: RAL
     query: '@*[ral=true]*'
