@@ -11,7 +11,7 @@ profile:
   more_info: >
 
 research_graph: true # interactive "research journey" timeline (_includes/research_graph.liquid)
-selected_papers: true # includes a list of papers marked as "selected={true}"
+selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 
 announcements:

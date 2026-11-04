@@ -1,7 +1,7 @@
 // "Research journey" graph for the about page (_includes/research_graph.liquid).
 // Papers are read from the rendered /publications/ page (data-pub-* attributes from
-// _layouts/bib.liquid), so the graph updates whenever papers.bib changes. Career phases
-// and awards come from _data/research_journey.yml via #rg-config.
+// _layouts/bib.liquid), so the graph updates whenever papers.bib changes. Award markers
+// come from _data/research_journey.yml via #rg-config.
 (function () {
   "use strict";
 
@@ -11,25 +11,25 @@
   var SVG_NS = "http://www.w3.org/2000/svg";
   var MONTHS = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
 
-  // Lanes top to bottom: the path rises from underwater to the sea surface.
+  // Bands top to bottom: the trail rises from underwater to the sea surface.
   var LANES = [
-    { key: "surface", label: "Maritime Surface" },
-    { key: "ground", label: "Ground" },
-    { key: "under", label: "Underwater" },
+    { key: "surface", label: "Maritime Surface", cls: "rg-lane rg-lane-surface" },
+    { key: "ground", label: "Ground", cls: "rg-lane rg-lane-ground" },
+    { key: "under", label: "Underwater", cls: "rg-lane rg-lane-under" },
   ];
   var SENSORS = [
-    { key: "radar", label: "Radar", cls: "rg-fill-radar" },
-    { key: "lidar", label: "LiDAR", cls: "rg-fill-lidar" },
-    { key: "sonar", label: "Sonar", cls: "rg-fill-sonar" },
-    { key: "vision", label: "Camera / other", cls: "rg-fill-vision" },
+    { key: "radar", label: "Radar", color: "var(--rg-radar)" },
+    { key: "lidar", label: "LiDAR", color: "var(--rg-lidar)" },
+    { key: "sonar", label: "Sonar", color: "var(--rg-sonar)" },
+    { key: "other", label: "Camera / other", color: "var(--rg-other)" },
   ];
   var TYPES = {
-    journal: { label: "Journal", r: 10 },
-    conference: { label: "Conference", r: 7.5 },
-    "domestic-journal": { label: "Domestic journal", r: 6 },
-    "domestic-conference": { label: "Domestic conference", r: 6 },
-    workshop: { label: "Workshop / poster", r: 5 },
-    other: { label: "Other", r: 5 },
+    journal: { label: "Journal", r: 12 },
+    conference: { label: "Conference", r: 9 },
+    "domestic-journal": { label: "Domestic journal", r: 7 },
+    "domestic-conference": { label: "Domestic conference", r: 7 },
+    workshop: { label: "Workshop / poster", r: 7 },
+    other: { label: "Other", r: 7 },
   };
   var TAG_LABELS = { radar: "Radar", lidar: "LiDAR", sonar: "Sonar", slam: "SLAM", learning: "Learning" };
   var VENUE_NAMES = {
@@ -38,14 +38,18 @@
     "ifac-papersonline": "IFAC-PapersOnLine",
   };
 
-  var W = 960;
-  var M = { left: 128, right: 24 };
-  var PHASE_Y = 6;
-  var PHASE_H = 24;
-  var PLOT_TOP = 52;
-  var LANE_H = 96;
-  var AXIS_H = 30;
-  var H = PLOT_TOP + LANES.length * LANE_H + AXIS_H;
+  // Geometry (SVG user units; the SVG scales to the card width).
+  var W = 900;
+  var LABEL_W = 132; // lane name area inside each band
+  var PLOT_L = LABEL_W + 14;
+  var PLOT_R = W - 22;
+  var AWARD_Y = 12;
+  var LANE_TOP = 30;
+  var LANE_H = 82;
+  var LANE_GAP = 8;
+  var LANES_BOTTOM = LANE_TOP + LANES.length * LANE_H + (LANES.length - 1) * LANE_GAP;
+  var AXIS_Y = LANES_BOTTOM + 22;
+  var H = AXIS_Y + 6;
 
   var svg = root.querySelector(".rg-svg");
   var tooltip = root.querySelector(".rg-tooltip");
@@ -53,12 +57,12 @@
   var legendEl = root.querySelector(".rg-legend");
   var fallback = root.querySelector(".rg-fallback");
 
-  var config = { phases: [], awards: [] };
+  var config = { awards: [] };
   try {
     var configEl = document.getElementById("rg-config");
     if (configEl) config = JSON.parse(configEl.textContent) || config;
   } catch (e) {
-    // Phases and awards are optional decoration.
+    // Awards are optional decoration.
   }
 
   function el(name, attrs, parent) {
@@ -134,15 +138,16 @@
 
       var img = row.querySelector("img");
       var thumb = img && img.getAttribute("src") ? new URL(img.getAttribute("src"), baseUrl).href : "";
+      var type = TYPES[row.getAttribute("data-pub-type")] ? row.getAttribute("data-pub-type") : "other";
 
       papers.push({
         key: body.id,
         title: clean((body.querySelector(".title") || {}).textContent),
         venue: shortVenue((body.querySelector(".periodical") || {}).textContent),
         year: year,
-        month: month,
         t: year + (month ? (month - 0.5) / 12 : 0.5),
-        type: TYPES[row.getAttribute("data-pub-type")] ? row.getAttribute("data-pub-type") : "other",
+        type: type,
+        r: TYPES[type].r,
         tags: tags,
         lane: lane,
         sensors: sensors.slice(0, 2),
@@ -156,7 +161,7 @@
     return papers;
   }
 
-  // Place dots in a lane without overlap: nudge up/down from the lane centre.
+  // Place bubbles in a band without overlap: nudge up/down from the band centre.
   function layoutLane(nodes, cy, halfHeight) {
     var placed = [];
     nodes
@@ -165,19 +170,18 @@
         return a.x - b.x || b.r - a.r;
       })
       .forEach(function (n) {
-        var step = 0;
         var y = cy;
-        for (var tries = 0; tries < 40; tries++) {
+        for (var step = 0; step < 40; step++) {
           var offset = Math.ceil(step / 2) * 7 * (step % 2 ? -1 : 1);
+          if (Math.abs(offset) > halfHeight - n.r - 4) break;
           y = cy + offset;
           var hit = placed.some(function (p) {
             var dx = p.x - n.x;
             var dy = p.y - y;
-            var min = p.r + n.r + 4;
+            var min = p.r + n.r + 5;
             return dx * dx + dy * dy < min * min;
           });
-          if (!hit || Math.abs(offset) > halfHeight - n.r) break;
-          step++;
+          if (!hit) break;
         }
         n.y = y;
         placed.push(n);
@@ -193,22 +197,31 @@
       var p1 = points[i];
       var p2 = points[i + 1];
       var p3 = points[i + 2] || p2;
-      var c1x = p1.x + (p2.x - p0.x) / 6;
-      var c1y = p1.y + (p2.y - p0.y) / 6;
-      var c2x = p2.x - (p3.x - p1.x) / 6;
-      var c2y = p2.y - (p3.y - p1.y) / 6;
-      d += " C" + [c1x, c1y, c2x, c2y, p2.x, p2.y].map(function (v) {
-        return v.toFixed(1);
-      }).join(",");
+      var c = [p1.x + (p2.x - p0.x) / 6, p1.y + (p2.y - p0.y) / 6, p2.x - (p3.x - p1.x) / 6, p2.y - (p3.y - p1.y) / 6, p2.x, p2.y];
+      d +=
+        " C" +
+        c
+          .map(function (v) {
+            return v.toFixed(1);
+          })
+          .join(",");
     }
     return d;
   }
 
   function halfDisc(cx, cy, r, side) {
     // side -1: left half, 1: right half
-    return (
-      "M" + cx + "," + (cy - r) + " A" + r + "," + r + " 0 0," + (side < 0 ? 0 : 1) + " " + cx + "," + (cy + r) + " Z"
-    );
+    return "M" + cx + "," + (cy - r) + " A" + r + "," + r + " 0 0," + (side < 0 ? 0 : 1) + " " + cx + "," + (cy + r) + " Z";
+  }
+
+  function starPoints(cx, cy, outer, inner) {
+    var pts = [];
+    for (var k = 0; k < 10; k++) {
+      var rad = k % 2 ? inner : outer;
+      var ang = -Math.PI / 2 + (k * Math.PI) / 5;
+      pts.push((cx + rad * Math.cos(ang)).toFixed(1) + "," + (cy + rad * Math.sin(ang)).toFixed(1));
+    }
+    return pts.join(" ");
   }
 
   function escapeHtml(s) {
@@ -217,91 +230,78 @@
     });
   }
 
-  function render(papers) {
-    var minT = Math.floor(Math.min.apply(null, papers.map(function (p) { return p.t; })));
-    var nowT = new Date().getFullYear() + new Date().getMonth() / 12;
-    var maxT = Math.ceil(Math.max(nowT, Math.max.apply(null, papers.map(function (p) { return p.t; }))) + 0.01);
-    var plotW = W - M.left - M.right;
-    function x(t) {
-      return M.left + ((t - minT) / (maxT - minT)) * plotW;
+  function maxOf(list, fn) {
+    return Math.max.apply(null, list.map(fn));
+  }
+
+  function minOf(list, fn) {
+    return Math.min.apply(null, list.map(fn));
+  }
+
+  function drawBubble(parent, p) {
+    var a = el("a", { href: p.href, class: "rg-node " + (p.lead ? "rg-lead" : "rg-co"), "aria-label": p.title + ", " + p.venue + " " + p.year }, parent);
+    el("circle", { cx: p.x, cy: p.y, r: p.r + 7, class: "rg-hit" }, a);
+    el("circle", { cx: p.x, cy: p.y, r: p.r + 3.5, class: "rg-hover-ring" }, a);
+    var c0 = p.sensors[0].color;
+    if (p.sensors.length > 1) {
+      el("path", { d: halfDisc(p.x, p.y, p.r, -1), class: "rg-dot", style: "fill:" + c0 }, a);
+      el("path", { d: halfDisc(p.x, p.y, p.r, 1), class: "rg-dot", style: "fill:" + p.sensors[1].color }, a);
+      el("circle", { cx: p.x, cy: p.y, r: p.r, class: "rg-dot-outline", style: p.lead ? "" : "stroke:" + c0 }, a);
+    } else {
+      el("circle", { cx: p.x, cy: p.y, r: p.r, class: "rg-dot", style: "fill:" + c0 }, a);
+      if (!p.lead) el("circle", { cx: p.x, cy: p.y, r: p.r, class: "rg-dot-outline", style: "stroke:" + c0 }, a);
     }
-    var plotBottom = PLOT_TOP + LANES.length * LANE_H;
+    return a;
+  }
+
+  function render(papers) {
+    var minT = Math.floor(minOf(papers, (p) => p.t));
+    var now = new Date();
+    var maxT = Math.ceil(Math.max(now.getFullYear() + now.getMonth() / 12, maxOf(papers, (p) => p.t)) + 0.01);
+    function x(t) {
+      return PLOT_L + ((t - minT) / (maxT - minT)) * (PLOT_R - PLOT_L);
+    }
 
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
     svg.innerHTML = "";
-    var title = el("title", { id: "rg-svg-title" }, svg);
-    title.textContent = "Publications over time by research domain";
+    el("title", { id: "rg-svg-title" }, svg).textContent = "Publications over time by research domain";
 
-    // Career phases: a labelled band on top and a faint wash behind the lanes.
-    var gPhases = el("g", { class: "rg-phases" }, svg);
-    (config.phases || []).forEach(function (phase, i) {
-      var s = Math.max(parseYm(phase.start), minT);
-      var e = Math.min(parseYm(phase.end), maxT);
-      if (!(e > s)) return;
-      var x0 = x(s) + 1;
-      var x1 = x(e) - 1;
-      el("rect", { x: x0, y: PLOT_TOP, width: x1 - x0, height: plotBottom - PLOT_TOP, class: i % 2 ? "rg-phase-wash rg-phase-alt" : "rg-phase-wash" }, gPhases);
-      var band = el("rect", { x: x0, y: PHASE_Y, width: x1 - x0, height: PHASE_H, rx: 6, class: "rg-phase-band" }, gPhases);
-      var tip = el("title", {}, band);
-      tip.textContent = phase.label + " (" + phase.start + " – " + phase.end + ")";
-      var label = String(phase.label);
-      if (label.length * 6.4 + 14 < x1 - x0) {
-        var text = el("text", { x: (x0 + x1) / 2, y: PHASE_Y + PHASE_H / 2 + 4, class: "rg-phase-label" }, gPhases);
-        text.textContent = label;
-      }
-    });
-
-    // Year grid and axis.
-    var gAxis = el("g", { class: "rg-axis" }, svg);
-    for (var yr = minT; yr <= maxT; yr++) {
-      el("line", { x1: x(yr), x2: x(yr), y1: PLOT_TOP, y2: plotBottom, class: "rg-grid" }, gAxis);
-      if (yr < maxT) {
-        var t = el("text", { x: x(yr + 0.5), y: plotBottom + 20, class: "rg-axis-label" }, gAxis);
-        t.textContent = yr;
-      }
-    }
-
-    // Lanes.
-    var gLanes = el("g", { class: "rg-lanes" }, svg);
+    // Domain bands.
+    var gLanes = el("g", {}, svg);
     LANES.forEach(function (lane, i) {
-      var y0 = PLOT_TOP + i * LANE_H;
+      var y0 = LANE_TOP + i * (LANE_H + LANE_GAP);
       lane.cy = y0 + LANE_H / 2;
-      if (i > 0) el("line", { x1: M.left, x2: W - M.right, y1: y0, y2: y0, class: "rg-lane-line" }, gLanes);
-      var name = el("text", { x: 0, y: lane.cy - 2, class: "rg-lane-label" }, gLanes);
-      name.textContent = lane.label;
+      el("rect", { x: 0, y: y0, width: W, height: LANE_H, rx: 18, class: lane.cls }, gLanes);
+      el("text", { x: 18, y: lane.cy - 3, class: "rg-lane-label" }, gLanes).textContent = lane.label;
       var count = papers.filter(function (p) {
         return p.lane === lane;
       }).length;
-      var sub = el("text", { x: 0, y: lane.cy + 14, class: "rg-lane-count" }, gLanes);
-      sub.textContent = count + (count === 1 ? " paper" : " papers");
+      el("text", { x: 18, y: lane.cy + 14, class: "rg-lane-count" }, gLanes).textContent = count + (count === 1 ? " paper" : " papers");
     });
-    el("line", { x1: M.left, x2: W - M.right, y1: plotBottom, y2: plotBottom, class: "rg-baseline" }, gLanes);
 
-    // Awards: a star on the phase band and a faint guide down through the lanes.
-    var gAwards = el("g", { class: "rg-awards" }, svg);
+    // Years.
+    var gAxis = el("g", {}, svg);
+    for (var yr = minT; yr < maxT; yr++) {
+      el("text", { x: x(yr + 0.5), y: AXIS_Y, class: "rg-axis-label" }, gAxis).textContent = yr;
+    }
+
+    // Awards above the bands.
+    var gAwards = el("g", {}, svg);
     var awardNodes = [];
     (config.awards || []).forEach(function (award) {
       var t = parseYm(award.date);
       if (t === null || t < minT || t > maxT) return;
       var ax = x(t + 0.5 / 12);
-      el("line", { x1: ax, x2: ax, y1: PHASE_Y + PHASE_H + 4, y2: plotBottom, class: "rg-award-guide" }, gAwards);
       var g = el("g", { class: "rg-award", tabindex: "0", role: "img", "aria-label": award.label }, gAwards);
-      var cy = PHASE_Y + PHASE_H + 10;
-      var pts = [];
-      for (var k = 0; k < 10; k++) {
-        var rad = k % 2 ? 3 : 7;
-        var ang = -Math.PI / 2 + (k * Math.PI) / 5;
-        pts.push((ax + rad * Math.cos(ang)).toFixed(1) + "," + (cy + rad * Math.sin(ang)).toFixed(1));
-      }
-      el("circle", { cx: ax, cy: cy, r: 12, class: "rg-hit" }, g);
-      el("polygon", { points: pts.join(" "), class: "rg-award-star" }, g);
-      awardNodes.push({ g: g, award: award, x: ax, y: cy });
+      el("circle", { cx: ax, cy: AWARD_Y, r: 14, class: "rg-hit" }, g);
+      el("circle", { cx: ax, cy: AWARD_Y, r: 10, class: "rg-award-bg" }, g);
+      el("polygon", { points: starPoints(ax, AWARD_Y, 6, 2.6), class: "rg-award-star" }, g);
+      awardNodes.push({ g: g, award: award, x: ax, y: AWARD_Y });
     });
 
-    // Paper positions.
+    // Bubble positions.
     papers.forEach(function (p) {
       p.x = x(p.t);
-      p.r = TYPES[p.type].r;
     });
     LANES.forEach(function (lane) {
       layoutLane(
@@ -313,7 +313,7 @@
       );
     });
 
-    // Research path through the papers I led.
+    // Footprint trail through the papers I led.
     var leadPoints = papers
       .filter(function (p) {
         return p.lead;
@@ -323,25 +323,15 @@
       });
     var path = el("path", { d: smoothPath(leadPoints), class: "rg-path" }, svg);
 
-    // Dots.
-    var gDots = el("g", { class: "rg-dots" }, svg);
+    // Bubbles: co-authored first, then mine on top; larger ones underneath.
+    var gDots = el("g", {}, svg);
     papers
       .slice()
       .sort(function (a, b) {
-        return b.r - a.r;
+        return a.lead - b.lead || b.r - a.r;
       })
       .forEach(function (p) {
-        var a = el("a", { href: p.href, class: "rg-node", "aria-label": p.title + ", " + p.venue + " " + p.year }, gDots);
-        el("circle", { cx: p.x, cy: p.y, r: p.r + 7, class: "rg-hit" }, a);
-        if (p.lead) el("circle", { cx: p.x, cy: p.y, r: p.r + 3, class: "rg-lead-ring" }, a);
-        if (p.sensors.length > 1) {
-          el("path", { d: halfDisc(p.x, p.y, p.r, -1), class: "rg-dot " + p.sensors[0].cls }, a);
-          el("path", { d: halfDisc(p.x, p.y, p.r, 1), class: "rg-dot " + p.sensors[1].cls }, a);
-          el("circle", { cx: p.x, cy: p.y, r: p.r, class: "rg-dot-outline" }, a);
-        } else {
-          el("circle", { cx: p.x, cy: p.y, r: p.r, class: "rg-dot " + p.sensors[0].cls }, a);
-        }
-        p.node = a;
+        p.node = drawBubble(gDots, p);
       });
 
     // Tooltip.
@@ -354,11 +344,8 @@
       tooltip.hidden = false;
       var tw = tooltip.offsetWidth;
       var th = tooltip.offsetHeight;
-      var l = Math.min(Math.max(left - tw / 2, 4), root.clientWidth - tw - 4);
-      var t = top - th - 14;
-      if (t < 0) t = top + 18;
-      tooltip.style.left = l + "px";
-      tooltip.style.top = t + "px";
+      tooltip.style.left = Math.min(Math.max(left - tw / 2, 8), root.clientWidth - tw - 8) + "px";
+      tooltip.style.top = (top - th - 14 < 0 ? top + 22 : top - th - 14) + "px";
     }
 
     function showPaper(p) {
@@ -368,12 +355,12 @@
           return TAG_LABELS[t];
         })
         .map(function (t) {
-          return '<span class="rg-tip-tag">' + TAG_LABELS[t] + "</span>";
+          return TAG_LABELS[t];
         })
-        .join("");
+        .join(" · ");
       tooltip.innerHTML =
         (p.thumb ? '<img class="rg-tip-thumb" alt="" src="' + escapeHtml(p.thumb) + '">' : "") +
-        '<div class="rg-tip-body">' +
+        "<div>" +
         '<div class="rg-tip-meta"><span class="rg-tip-venue">' +
         escapeHtml(p.venue) +
         "</span> · " +
@@ -384,47 +371,44 @@
         '<div class="rg-tip-title">' +
         escapeHtml(p.title) +
         "</div>" +
-        '<div class="rg-tip-role' +
+        '<span class="rg-tip-role' +
         (p.lead ? " is-lead" : "") +
         '">' +
         role +
-        "</div>" +
+        "</span>" +
         (tags ? '<div class="rg-tip-tags">' + tags + "</div>" : "") +
         "</div>";
       place(p.x, p.y - p.r);
     }
 
     function showAward(a) {
-      tooltip.innerHTML = '<div class="rg-tip-body"><div class="rg-tip-meta">Award · ' + escapeHtml(a.award.date) + '</div><div class="rg-tip-title">' + escapeHtml(a.award.label) + "</div></div>";
-      place(a.x, a.y - 6);
+      tooltip.innerHTML =
+        '<div><div class="rg-tip-meta">Award · ' + escapeHtml(a.award.date) + '</div><div class="rg-tip-title">' + escapeHtml(a.award.label) + "</div></div>";
+      place(a.x, a.y + 26);
     }
 
     function hide() {
       tooltip.hidden = true;
     }
 
+    function bindHover(node, show) {
+      node.addEventListener("mouseenter", show);
+      node.addEventListener("focus", show);
+      node.addEventListener("mouseleave", hide);
+      node.addEventListener("blur", hide);
+    }
     papers.forEach(function (p) {
-      p.node.addEventListener("mouseenter", function () {
+      bindHover(p.node, function () {
         showPaper(p);
       });
-      p.node.addEventListener("focus", function () {
-        showPaper(p);
-      });
-      p.node.addEventListener("mouseleave", hide);
-      p.node.addEventListener("blur", hide);
     });
     awardNodes.forEach(function (a) {
-      a.g.addEventListener("mouseenter", function () {
+      bindHover(a.g, function () {
         showAward(a);
       });
-      a.g.addEventListener("focus", function () {
-        showAward(a);
-      });
-      a.g.addEventListener("mouseleave", hide);
-      a.g.addEventListener("blur", hide);
     });
 
-    // Highlight controls.
+    // Highlight pills.
     var activeTag = "";
     var leadOnly = false;
     function applyHighlight() {
@@ -432,8 +416,7 @@
         var on = (!activeTag || p.tags.indexOf(activeTag) !== -1) && (!leadOnly || p.lead);
         p.node.classList.toggle("is-dim", !on);
       });
-      path.classList.toggle("is-strong", leadOnly);
-      path.classList.toggle("is-dim", !!activeTag && !leadOnly);
+      path.classList.toggle("is-dim", !!activeTag);
       root.querySelectorAll(".rg-toggle[data-rg-tag]").forEach(function (btn) {
         var on = btn.getAttribute("data-rg-tag") === activeTag;
         btn.classList.toggle("is-active", on);
@@ -457,56 +440,65 @@
     applyHighlight();
 
     // Headline numbers.
-    var leadCount = leadPoints.length;
     var journals = papers.filter(function (p) {
       return p.type === "journal";
     }).length;
     var stats = [
-      [papers.length, "publications"],
-      [journals, "international journals"],
-      [leadCount, "led as first or corresponding author"],
-      [minT + "–" + Math.max.apply(null, papers.map(function (p) { return p.year; })), "underwater → ground → sea surface"],
+      [papers.length, "papers"],
+      [leadPoints.length, "led by me"],
+      [journals, "int'l journals"],
     ];
     statsEl.innerHTML = stats
       .map(function (s) {
-        return '<div class="rg-stat"><div class="rg-stat-value">' + s[0] + '</div><div class="rg-stat-label">' + s[1] + "</div></div>";
+        return '<span class="rg-stat"><span class="rg-stat-value">' + s[0] + "</span>" + s[1] + "</span>";
       })
       .join("");
 
     // Legend.
+    function dot(color, r, solid) {
+      var s = r * 2 + 4;
+      return (
+        '<svg width="' +
+        s +
+        '" height="' +
+        s +
+        '" aria-hidden="true"><circle cx="' +
+        s / 2 +
+        '" cy="' +
+        s / 2 +
+        '" r="' +
+        r +
+        '" style="fill:' +
+        color +
+        ";fill-opacity:" +
+        (solid ? 1 : 0.22) +
+        (solid ? "" : ";stroke:" + color + ";stroke-width:1.5") +
+        '"></circle></svg>'
+      );
+    }
     var sensorItems = SENSORS.filter(function (s) {
       return papers.some(function (p) {
         return p.sensors.indexOf(s) !== -1;
       });
-    })
-      .map(function (s) {
-        return '<span class="rg-legend-item"><svg width="12" height="12" aria-hidden="true"><circle cx="6" cy="6" r="5" class="' + s.cls + '"></circle></svg>' + s.label + "</span>";
-      })
-      .join("");
-    var sizeItems = ["journal", "conference", "domestic-journal", "workshop"]
-      .filter(function (k) {
-        return papers.some(function (p) {
-          return p.type === k;
-        });
-      })
-      .map(function (k) {
-        var r = TYPES[k].r;
-        var s = r * 2 + 2;
-        return '<span class="rg-legend-item"><svg width="' + s + '" height="' + s + '" aria-hidden="true"><circle cx="' + s / 2 + '" cy="' + s / 2 + '" r="' + r + '" class="rg-legend-size"></circle></svg>' + TYPES[k].label + "</span>";
-      })
-      .join("");
+    }).map(function (s) {
+      return '<span class="rg-legend-item">' + dot(s.color, 5, true) + s.label + "</span>";
+    });
     legendEl.innerHTML =
-      '<div class="rg-legend-group"><span class="rg-legend-title">Sensor</span>' +
-      sensorItems +
-      '<span class="rg-legend-item rg-legend-note">half-and-half = two sensors</span></div>' +
-      '<div class="rg-legend-group"><span class="rg-legend-title">Venue</span>' +
-      sizeItems +
-      "</div>" +
-      '<div class="rg-legend-group"><span class="rg-legend-title">Mine</span>' +
-      '<span class="rg-legend-item"><svg width="18" height="18" aria-hidden="true"><circle cx="9" cy="9" r="4.5" class="rg-fill-vision"></circle><circle cx="9" cy="9" r="7.5" class="rg-lead-ring"></circle></svg>Led by me</span>' +
-      '<span class="rg-legend-item"><svg width="22" height="10" aria-hidden="true"><path d="M1,8 C7,8 13,2 21,2" class="rg-path"></path></svg>My research path</span>' +
-      '<span class="rg-legend-item"><svg width="14" height="14" aria-hidden="true"><polygon points="7,0 8.8,4.6 13.7,4.8 9.9,7.9 11.2,12.6 7,9.9 2.8,12.6 4.1,7.9 0.3,4.8 5.2,4.6" class="rg-award-star"></polygon></svg>Award</span>' +
-      "</div>";
+      sensorItems.join("") +
+      '<span class="rg-legend-sep" aria-hidden="true"></span>' +
+      '<span class="rg-legend-item">' +
+      dot("var(--soft-muted)", 5, true) +
+      "Led by me</span>" +
+      '<span class="rg-legend-item">' +
+      dot("var(--soft-muted)", 5, false) +
+      "Co-authored</span>" +
+      '<span class="rg-legend-item"><svg width="26" height="8" aria-hidden="true"><path d="M2,4 H24" class="rg-path"></path></svg>My trail</span>' +
+      '<span class="rg-legend-item">' +
+      dot("var(--soft-muted)", 7, false) +
+      " larger = journal</span>" +
+      '<span class="rg-legend-item"><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="8" class="rg-award-bg"></circle><polygon points="' +
+      starPoints(8, 8, 5, 2.2) +
+      '" class="rg-award-star"></polygon></svg>Award</span>';
   }
 
   var source = root.getAttribute("data-source");
@@ -524,12 +516,11 @@
       if (fallback) fallback.hidden = true;
     })
     .catch(function () {
-      if (fallback) fallback.textContent = "The research timeline could not be loaded. ";
-      if (fallback) {
-        var link = document.createElement("a");
-        link.href = source;
-        link.textContent = "See all publications.";
-        fallback.appendChild(link);
-      }
+      if (!fallback) return;
+      fallback.textContent = "The research timeline could not be loaded. ";
+      var link = document.createElement("a");
+      link.href = source;
+      link.textContent = "See all publications.";
+      fallback.appendChild(link);
     });
 })();
