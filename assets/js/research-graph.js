@@ -24,8 +24,8 @@
     { key: "camera", label: "Camera", color: "var(--rg-camera)" },
   ];
   var TYPES = {
-    journal: { label: "Journal", r: 12 },
-    conference: { label: "Conference", r: 9 },
+    journal: { label: "Int'l journal", r: 12 },
+    conference: { label: "Int'l conference", r: 9 },
     "domestic-journal": { label: "Domestic journal", r: 7 },
     "domestic-conference": { label: "Domestic conference", r: 7 },
     workshop: { label: "Workshop / poster", r: 5.5 },
