@@ -50,7 +50,7 @@ pub_domains:
 
 <div class="pub-filter" id="pub-filter">
   <div class="pub-filter-search">
-    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+    <svg class="pub-filter-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
     <input type="search" class="pub-filter-input" data-filter="q" placeholder="Search by title, author or venue" aria-label="Search publications" autocomplete="off" spellcheck="false">
   </div>
   <div class="pub-filter-rows">

@@ -1,0 +1,89 @@
+/*******************************************************************************
+ * Soft UI tokens and pill mixin
+ * Shared by the publication filters (_publications.scss) and the research
+ * journey graph (_research-graph.scss). Every token has a light and a dark value.
+ ******************************************************************************/
+
+:root {
+  --soft-card: #f7f7fa;
+  --soft-raised: #ffffff;
+  --soft-chip: #ececf1;
+  --soft-chip-hover: #e2e2e9;
+  --soft-ink: #2b2d33;
+  --soft-muted: #6b6e78;
+  --soft-faint: #9a9da6;
+  --soft-accent-bg: #f6e2f4;
+  --soft-accent-ink: #8c1585;
+  --soft-ring: rgba(140, 21, 133, 0.22);
+  --soft-shadow: 0 1px 2px rgba(24, 24, 40, 0.04), 0 14px 32px -16px rgba(24, 24, 40, 0.16);
+  --soft-shadow-sm: 0 1px 2px rgba(24, 24, 40, 0.08), 0 2px 6px -2px rgba(24, 24, 40, 0.1);
+}
+
+html[data-theme="dark"] {
+  --soft-card: #232327;
+  --soft-raised: #2e2e33;
+  --soft-chip: #2f3036;
+  --soft-chip-hover: #383940;
+  --soft-ink: #e8e8ec;
+  --soft-muted: #a5a7b0;
+  --soft-faint: #7c7e87;
+  --soft-accent-bg: #173943;
+  --soft-accent-ink: #8fd6ec;
+  --soft-ring: rgba(143, 214, 236, 0.25);
+  --soft-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 14px 32px -16px rgba(0, 0, 0, 0.6);
+  --soft-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+@mixin card {
+  border-radius: 22px;
+  background-color: var(--soft-card);
+  box-shadow: var(--soft-shadow);
+}
+
+// Rounded, filled toggle. Selected values get the accent tint; the resting "All"
+// option looks like a raised segment so it stays quiet.
+@mixin pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.38rem 0.9rem;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--soft-chip);
+  color: var(--soft-ink);
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+
+  &:hover {
+    background-color: var(--soft-chip-hover);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--soft-ring);
+  }
+
+  &.is-active {
+    background-color: var(--soft-accent-bg);
+    color: var(--soft-accent-ink);
+    font-weight: 600;
+  }
+}
+
+@mixin pill-resting-active {
+  background-color: var(--soft-raised);
+  color: var(--soft-ink);
+  box-shadow: var(--soft-shadow-sm);
+}
