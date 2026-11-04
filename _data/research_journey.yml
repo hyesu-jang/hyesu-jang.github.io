@@ -16,8 +16,8 @@ projects:
     lane: ground
     award: "Excellent Award (Runner-up), KAIST Undergraduate Research Participation Program"
 
+# Awards not tied to a single paper. Paper awards come from the `award` field in
+# _bibliography/papers.bib and are marked on that paper automatically.
 awards:
-  - label: "ICRA 2025: Best Conference Paper Finalist, Best Paper on Robot Perception Finalist"
-    date: "2025-05"
   - label: "ICCAS 2026: Outstanding Young Researcher Award"
     date: "2026-10"

@@ -155,6 +155,8 @@
         corresponding: corresponding,
         lead: first || corresponding,
         thumb: thumb,
+        // `award` field in papers.bib, rendered by bib.liquid as a hidden div.award block.
+        award: clean((body.querySelector("div.award") || {}).textContent),
         href: new URL("#" + encodeURIComponent(body.id), baseUrl).href,
       });
     });
@@ -269,6 +271,13 @@
       el("circle", { cx: p.x, cy: p.y, r: p.r, class: "rg-dot", style: "fill:" + c0 }, a);
       if (!p.lead) el("circle", { cx: p.x, cy: p.y, r: p.r, class: "rg-dot-outline", style: "stroke:" + c0 }, a);
     }
+    if (p.award) {
+      // Small gold star badge on the bubble's upper right.
+      var bx = p.x + p.r * 0.8;
+      var by = p.y - p.r * 0.8;
+      el("circle", { cx: bx, cy: by, r: 6.5, class: "rg-award-bg rg-badge" }, a);
+      el("polygon", { points: starPoints(bx, by, 4.2, 1.8), class: "rg-award-star" }, a);
+    }
     return a;
   }
 
@@ -354,17 +363,18 @@
     // Awards above the bands.
     var gAwards = el("g", {}, svg);
     var awardNodes = [];
+    // Awards: standalone ones from the YAML, plus any project or paper with an award.
     var awards = (config.awards || []).concat(
-      projects
+      items
         .filter(function (p) {
           return p.award;
         })
         .map(function (p) {
-          return { label: p.award + " — " + p.title, date: p.date };
+          return { label: p.award + " — " + p.title, date: String(p.year), t: p.t };
         })
     );
     awards.forEach(function (award) {
-      var t = markerT(award.date);
+      var t = award.t != null ? award.t : markerT(award.date);
       if (t === null || t < minT || t > maxT) return;
       var ax = x(t);
       var g = el("g", { class: "rg-award", tabindex: "0", role: "img", "aria-label": award.label }, gAwards);
@@ -452,6 +462,7 @@
         role +
         "</span>" +
         (tags ? '<div class="rg-tip-tags">' + tags + "</div>" : "") +
+        (p.award ? '<span class="rg-tip-award rg-tip-award-paper">★ ' + escapeHtml(p.award) + "</span>" : "") +
         "</div>";
       place(p.x, p.y - p.r);
     }

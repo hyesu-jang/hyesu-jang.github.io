@@ -12,11 +12,11 @@ nav_order: 1
 # - areas / domains: flags set to {true} in _bibliography/papers.bib
 pub_types:
   - key: journal
-    label: Journals
-    chip: Journal
+    label: "Int'l Journals"
+    chip: "Int'l Journal"
   - key: conference
-    label: Conferences
-    chip: Conference
+    label: "Int'l Conferences"
+    chip: "Int'l Conference"
   - key: domestic-journal
     label: Domestic Journals
     chip: Domestic Journal

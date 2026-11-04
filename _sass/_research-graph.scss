@@ -348,3 +348,12 @@ html[data-theme="dark"] .rg-root {
   font-size: 0.72rem;
   font-weight: 600;
 }
+
+.rg-badge {
+  stroke: var(--soft-card);
+  stroke-width: 1.5;
+}
+
+.rg-tip-award-paper {
+  margin-top: 0.4rem;
+}
