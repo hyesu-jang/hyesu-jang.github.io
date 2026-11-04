@@ -123,7 +123,9 @@
       var authorText = clean(authorEl && authorEl.textContent);
       var me = authorEl && authorEl.querySelector("em");
       var meText = clean(me && me.textContent);
-      var first = !!meText && authorText.indexOf(meText) === 0;
+      // "*" marks equal contribution (co-first authors), e.g. "Younggun Cho* and Hyesu Jang*".
+      var coFirst = !!meText && /[*∗]/.test(meText) && authorText.indexOf(meText) !== 0;
+      var first = !!meText && (authorText.indexOf(meText) === 0 || coFirst);
       var corresponding = !!meText && meText.indexOf("†") !== -1;
 
       var lane = LANES.filter(function (l) {
@@ -152,6 +154,7 @@
         lane: lane,
         sensors: sensors.slice(0, 2),
         first: first,
+        coFirst: coFirst,
         corresponding: corresponding,
         lead: first || corresponding,
         thumb: thumb,
@@ -434,7 +437,8 @@
     }
 
     function showPaper(p) {
-      var role = p.first && p.corresponding ? "First & corresponding author" : p.first ? "First author" : p.corresponding ? "Corresponding author" : "Co-author";
+      var firstLabel = p.coFirst ? "Co-first author" : "First author";
+      var role = p.first && p.corresponding ? firstLabel + " & corresponding author" : p.first ? firstLabel : p.corresponding ? "Corresponding author" : "Co-author";
       var tags = p.tags
         .filter(function (t) {
           return TAG_LABELS[t];
