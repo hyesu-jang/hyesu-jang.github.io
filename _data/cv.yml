@@ -1,0 +1,198 @@
+cv:
+  name: Hyesu Jang
+  label: Robotics Researcher
+  email: hyesu.official@gmail.com
+  location: Seoul, KR
+  image: ""
+  summary: >
+    Robotics Researcher at Seadronix Inc., focusing on Sensor Fusion and SLAM
+    algorithm development for autonomous vessel systems. Ph.D. in Mechanical
+    Engineering from Seoul National University with expertise in Robust Radar
+    SLAM for Maritime Environments.
+
+  sections:
+    Education:
+      - institution: Seoul National University (SNU)
+        location: Seoul, Korea
+        url: https://rpm.snu.ac.kr/
+        area: Mechanical Engineering
+        studyType: Ph.D.
+        start_date: 2021-09
+        end_date: 2024-08
+        highlights:
+          - "Robust Perception and Mobile Robotics Lab, advised by Prof. Ayoung Kim"
+          - "Thesis: Robust Radar SLAM for Maritime Environment"
+
+      - institution: Korea Advanced Institute of Science and Technology (KAIST)
+        location: Daejeon, Korea
+        area: Civil and Environmental Engineering
+        studyType: Ph.D. Student (transferred to SNU)
+        start_date: 2020-09
+        end_date: 2021-08
+        highlights:
+          - "Advised by Prof. Ayoung Kim"
+
+      - institution: Korea Advanced Institute of Science and Technology (KAIST)
+        location: Daejeon, Korea
+        area: Civil and Environmental Engineering
+        studyType: M.S.
+        start_date: 2018-09
+        end_date: 2020-08
+        highlights:
+          - "Advised by Prof. Ayoung Kim"
+          - "Thesis: Opti-Acoustic Underwater SLAM Using Style-transferred Multi-modal Matching"
+
+      - institution: Korea Advanced Institute of Science and Technology (KAIST)
+        location: Daejeon, Korea
+        area: Civil and Environmental Engineering
+        studyType: B.S.
+        start_date: 2014-03
+        end_date: 2018-08
+
+      - institution: Warsaw University of Technology (WUT)
+        location: Warsaw, Poland
+        area: Exchange Student
+        studyType: Exchange
+        start_date: 2017-03
+        end_date: 2017-06
+
+      - institution: Busan Science High School
+        location: Busan, Korea
+        area: Physics, Electronic Engineering
+        studyType: Early Graduation
+        start_date: 2012-03
+        end_date: 2014-02
+
+    Experience:
+      - company: Seadronix Inc.
+        position: Robotics Researcher / Team Leader
+        location: Seoul, Korea
+        url: https://www.seadronix.com/
+        start_date: 2025-01
+        end_date: present
+        summary: Sensor Fusion and SLAM algorithm development for autonomous vessel systems utilizing X-band Radar, W-band Radar, and LiDAR.
+
+      - company: Seoul National University
+        position: Post-Doctoral Researcher
+        location: Seoul, Korea
+        start_date: 2024-09
+        end_date: 2024-12
+        summary: Institute of Advanced Machines and Design.
+
+    Awards:
+      - title: Best Conference Paper Award – Finalist
+        date: 2025
+        awarder: IEEE ICRA
+
+      - title: Best Paper Award on Robot Perception – Finalist
+        date: 2025
+        awarder: IEEE ICRA
+
+      - title: Excellent Award (Runner-up)
+        date: 2017
+        awarder: KAIST Undergraduate Research Program
+
+      - title: Grand Prize
+        date: 2016
+        awarder: KAIST Idea Cooking for Fusion of Engineering and Art
+
+      - title: Encouragement Award (3rd Prize)
+        date: 2016
+        awarder: KAIST Undergraduate Research Program
+
+    Patents:
+      - title: "Radar placement and algorithm for ego-motion estimation"
+        date: ""
+        summary: "Registered, No.10-2587292"
+
+      - title: "Electronic device for estimating underwater path with acoustic and optical matching"
+        date: ""
+        summary: "Registered, No.10-2678475"
+
+      - title: "A method for performing place recognition using radar image"
+        date: ""
+        summary: "Filed, No.10-2025-0136094"
+
+      - title: "Apparatus and method for determining odometry of mobile object"
+        date: ""
+        summary: "Filed, No.10-2026-0026295"
+
+    Projects:
+      - title: "High-precision sensor system and software for autonomous return of small and medium-sized vessels in coastal areas"
+        date: 2025
+        summary: "Seadronix Inc."
+
+      - title: "Development of multipurpose offshore floating infrastructure construction technology"
+        date: 2023-2024
+        summary: "Seoul National University"
+
+      - title: "Maritime Radar Odometry Estimation"
+        date: 2023
+        summary: "Seoul National University"
+
+      - title: "Non-optical sensor-based autonomous driving for extreme environments"
+        date: 2021-2024
+        summary: "Seoul National University"
+
+      - title: "Construction site information collection and analysis technology"
+        date: 2021-2024
+        summary: "Seoul National University"
+
+      - title: "Automated urban analysis techniques using 3D sensor data"
+        date: 2019
+        summary: "KAIST"
+
+      - title: "Navigation Technology and Safety Device Design for the Visually Impaired"
+        date: 2017
+        summary: "KAIST Undergraduate Research Program"
+
+      - title: "Weather/Season Invariant Place Recognition using Image Processing"
+        date: 2016
+        summary: "KAIST Undergraduate Research Program"
+
+    Workshop Organization:
+      - title: "Workshop on Radar in Robotics: Resilience from Signal to Navigation"
+        date: 2024
+        awarder: IEEE ICRA
+
+    Professional Service:
+      - title: "Reviewer"
+        date: ""
+        summary: >
+          IEEE Transactions on Robotics (T-RO)<br>
+          IEEE Robotics and Automation Letters (RA-L)<br>
+          IEEE International Conference on Robotics and Automation (ICRA)<br>
+          IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)<br>
+          International Conference on Ubiquitous Robots (UR)<br>
+          Journal of Korea Robotics Society (JKROS)
+
+      - title: "Teaching Assistant"
+        date: ""
+        summary: >
+          [CE352] Signal and System for Construction IT, KAIST (2018)<br>
+          [M3228.000300] Sensor-Based Spatial Intelligence, SNU (2022)<br>
+          [M2794.004200] Mechanical System Design Project, SNU (2022)
+
+      - title: "Page/Server Administrator"
+        date: ""
+        summary: >
+          MOANA Dataset<br>
+          MulRan Dataset<br>
+          SNU RPM Lab website
+
+    Skills:
+      - name: Programming
+        icon: fa-solid fa-code
+        keywords: "Python, C/C++, MATLAB, PHP, HTML/CSS"
+
+      - name: Sensor Fusion & SLAM
+        icon: fa-solid fa-satellite-dish
+        keywords: "X-band Radar, W-band Radar, LiDAR, Camera, Sonar"
+
+      - name: Robotics
+        icon: fa-solid fa-robot
+        keywords: "Autonomous Vessels, Maritime Navigation, Mobile Robotics"
+
+      - name: Tools
+        icon: fa-solid fa-terminal
+        keywords: "Linux, Shell, LaTeX, Git, ROS, ROS2"
