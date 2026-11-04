@@ -1,16 +1,17 @@
 cv:
   name: Hyesu Jang
-  label: Robotics Researcher
+  headline: Robotics Researcher
   email: hyesu.official@gmail.com
   location: Seoul, KR
-  image: ""
-  summary: >
-    Robotics Researcher at Seadronix Inc., focusing on Sensor Fusion and SLAM
-    algorithm development for autonomous vessel systems. Ph.D. in Mechanical
-    Engineering from Seoul National University with expertise in Robust Radar
-    SLAM for Maritime Environments.
 
   sections:
+    Summary:
+      - >
+        Robotics Researcher at Seadronix Inc., focusing on Sensor Fusion and SLAM
+        algorithm development for autonomous vessel systems. Ph.D. in Mechanical
+        Engineering from Seoul National University with expertise in Robust Radar
+        SLAM for Maritime Environments.
+
     Education:
       - institution: Seoul National University (SNU)
         location: Seoul, Korea
